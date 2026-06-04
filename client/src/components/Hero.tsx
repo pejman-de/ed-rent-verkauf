@@ -30,7 +30,9 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
             </div>
             
             <h1 className="font-display font-extrabold text-4xl tracking-tight text-primary sm:text-5xl lg:text-6xl leading-[1.1]">
-              Vom Sprinter bis zum LKW. Neu und gebraucht. Aus einer Hand.
+              Vom Sprinter bis zum LKW. 
+Neu und gebraucht. 
+Aus einer Hand.
             </h1>
             
             <p className="font-sans text-lg text-muted max-w-xl leading-relaxed">
