@@ -15,12 +15,12 @@ export default function DealerPath({ onCtaClick }: DealerPathProps) {
     {
       icon: <Sparkles className="h-5 w-5 text-accent" />,
       title: "Bevorzugter Zugriff",
-      desc: "Erhalten Sie Vorab-Listen von Neuzugängen, noch bevor diese offiziell in die Vermarktung gehen."
+      desc: "Erhalten Sie frühen Zugriff auf Neuzugänge, noch bevor diese öffentlich verfügbar sind."
     },
     {
       icon: <ShieldAlert className="h-5 w-5 text-accent" />,
       title: "Persönlicher Key-Account",
-      desc: "Ein fester Ansprechpartner für all Ihre Anfragen, Rahmenverträge und After-Sales-Themen."
+      desc: "Ein fester Ansprechpartner für alle Anfragen, Rahmenverträge und Spezial-Themen."
     }
   ];
 

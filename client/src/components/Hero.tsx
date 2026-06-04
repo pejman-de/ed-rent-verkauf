@@ -30,14 +30,11 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
             </div>
             
             <h1 className="font-display font-extrabold text-4xl tracking-tight text-primary sm:text-5xl lg:text-6xl leading-[1.1]">
-              Vom Sprinter <br className="hidden sm:inline" />
-              bis zum LKW. <br />
-              <span className="text-muted">Neu und gebraucht.</span> <br />
-              Aus einer Hand.
+              Vom Sprinter bis zum LKW. Neu und gebraucht. Aus einer Hand.
             </h1>
             
             <p className="font-sans text-lg text-muted max-w-xl leading-relaxed">
-              ED Rent & Sale ist Ihr verlässlicher Partner für erstklassige Nutzfahrzeuge. Wir bieten maßgeschneiderte B2B-Mobilitätslösungen für Handwerk, Logistik und Handel.
+              ED Rent & Sale ist Ihr verlässlicher Partner für erstklassige Nutzfahrzeuge. Maßgeschneiderte B2B-Mobilitätslösungen für Handwerk, Logistik und Handel. Ein Ansprechpartner, kein Behördenlauf.
             </p>
           </div>
 
@@ -102,7 +99,7 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
               B2B-Ausrichtung
             </span>
             <span className="font-sans text-xs text-muted-foreground mt-2 leading-snug">
-              Individuelle Konditionen & Rahmenverträge ab 10 Fahrzeugen.
+              Geprüfte Qualität für Ihren Fuhrpark.
             </span>
           </div>
         </div>

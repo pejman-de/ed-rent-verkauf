@@ -10,17 +10,17 @@ export default function ProofBlock() {
     {
       icon: <Network className="h-6 w-6 text-primary" />,
       title: "Starkes Netzwerk",
-      desc: "Direkter Zugriff auf Großbestände führender Hersteller sichert Ihnen beste Preise und kurze Lieferzeiten."
+      desc: "Direkter Zugriff auf Großbestände führender Hersteller. Das sichert beste Preise und kurze Lieferzeiten."
     },
     {
       icon: <Zap className="h-6 w-6 text-primary" />,
       title: "Schnelle Abwicklung",
-      desc: "Digitale Prozesse und erfahrene B2B-Spezialisten garantieren minimale Standzeiten für Ihren Betrieb."
+      desc: "Digitale Prozesse und ein fester B2B-Ansprechpartner sorgen für reibungslose Standzeiten für Ihren Betrieb."
     },
     {
       icon: <ShieldCheck className="h-6 w-6 text-primary" />,
       title: "Geprüfte Sicherheit",
-      desc: "Jedes gebrauchte Nutzfahrzeug wird mit neuem TÜV, HU/AU und lückenlosem Prüfbericht ausgeliefert."
+      desc: "Jedes geprüfte Nutzfahrzeug wird mit neuem TÜV, HU/AU und lückenlosem Prüfbericht ausgeliefert."
     }
   ];
 

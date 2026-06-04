@@ -9,19 +9,19 @@ export default function FAQ() {
   const faqs = [
     {
       q: "Welche Finanzierungs- und Leasingmöglichkeiten bieten Sie an?",
-      a: "Wir arbeiten eng mit renommierten B2B-Finanzierungspartnern wie der GEFA Bank zusammen. Dadurch können wir Ihnen maßgeschneiderte Finanzierungslösungen wie klassisches Leasing, Mietkauf oder Ratenzahlung anbieten – perfekt abgestimmt auf die steuerlichen und betriebswirtschaftlichen Anforderungen Ihres Unternehmens."
+      a: "Wir finanzieren passgenau über unseren Partner GEFA Bank. Ob Leasing, Mietkauf oder klassische Finanzierung, wir finden die für Ihren Betrieb wirtschaftlichste Lösung."
     },
     {
       q: "Sind individuelle Sonderaufbauten (z.B. Koffer, Pritsche, Plane) möglich?",
-      a: "Ja, absolut. Sonderaufbauten sind eine unserer Kernkompetenzen. Ob Kofferaufbau, Pritsche mit Plane, Kühlkoffer oder spezielle Regaleinbauten für Handwerksbetriebe – wir planen und realisieren Ihren Aufbau exakt nach Ihren Vorgaben direkt ab Werk oder über zertifizierte Aufbaupartner."
+      a: "Ja. Wir realisieren Ihren Wunschaufbau exakt nach Vorgabe, vom Standard-Koffer bis zur Branchenlösung."
     },
     {
       q: "Wie läuft die Lieferung oder Abholung ab?",
-      a: "Sie haben die Wahl: Entweder holen Sie Ihr neues Nutzfahrzeug direkt an unserem zentralen Ausstellungsstandort ab, oder wir liefern es bundesweit gegen eine faire Pauschale direkt an Ihren Wunschort oder Betriebshof. Die Übergabe erfolgt stets inklusive einer professionellen Einweisung."
+      a: "Sie haben die Wahl. Holen Sie Ihr Fahrzeug an unserem Standort ab oder lassen Sie es termingerecht direkt zu Ihrem Betriebshof liefern."
     },
     {
       q: "Welche Garantien erhalte ich beim Kauf eines Gebrauchtfahrzeugs?",
-      a: "Sicherheit steht bei uns an erster Stelle. Jedes gebrauchte Nutzfahrzeug durchläuft vor dem Verkauf unseren strengen 120-Punkte-Werkstattcheck. Sie erhalten das Fahrzeug mit frischer Haupt- und Abgasuntersuchung (TÜV) sowie einer speziellen B2B-Gebrauchtwagengarantie, die Sie vor unerwarteten Reparaturkosten schützt."
+      a: "Jeder Gebrauchte durchläuft unseren 120-Punkte-Check und kommt mit frischem TÜV sowie Gewährleistung. So fahren Sie ohne böse Überraschungen los."
     }
   ];
 
@@ -34,10 +34,10 @@ export default function FAQ() {
             Häufig gestellte Fragen
           </span>
           <h2 className="font-display font-extrabold text-3xl text-primary tracking-tight">
-            Fragen & Antworten
+            Fragen & Antworten.
           </h2>
           <p className="font-sans text-base text-muted leading-relaxed">
-            Hier finden Sie schnelle Antworten auf die wichtigsten Fragen rund um den Fahrzeugkauf, Sonderaufbauten und Finanzierung bei ED Rent & Sale.
+            Hier finden Sie schnelle Antworten auf die wichtigsten Fragen rund um den Fahrzeugkauf, Sonderaufbauten und die Finanzierung bei ED Rent & Sale.
           </p>
         </div>
 

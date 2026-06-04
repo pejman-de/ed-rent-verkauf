@@ -286,7 +286,7 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
             <div className="space-y-1">
               <h4 className="font-display font-bold text-sm text-primary">Ihr Wunschfahrzeug ist nicht dabei?</h4>
               <p className="font-sans text-xs text-muted max-w-xl leading-relaxed">
-                Über unser herstellerübergreifendes B2B-Netzwerk haben wir Zugriff auf über 1.500 kurzfristig verfügbare Nutzfahrzeuge. Nutzen Sie einfach das Anfrageformular für Ihre individuelle Spezifikation.
+                Über unser Händlerübergreifendes B2B-Netzwerk haben wir Zugriff auf über 1.000 weitere verfügbare Nutzfahrzeuge. Sagen Sie uns einfach, was Sie suchen.
               </p>
             </div>
           </div>

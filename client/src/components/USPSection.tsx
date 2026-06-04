@@ -6,25 +6,25 @@ export default function USPSection() {
       num: "01",
       icon: <ShieldCheck className="h-6 w-6 text-accent" />,
       title: "Garantierte Qualität",
-      desc: "Jedes Fahrzeug durchläuft vor der Übergabe unseren strengen 120-Punkte-Check. Inklusive B2B-Garantie für maximale Sorgenfreiheit."
+      desc: "Jedes Fahrzeug durchläuft vor der Übergabe unseren 120-Punkte-Check. Inklusive D2D-Garantie für maximale Sorgenfreiheit."
     },
     {
       num: "02",
       icon: <Truck className="h-6 w-6 text-accent" />,
       title: "Flexible Logistik",
-      desc: "Wahlweise bequeme Selbstabholung an unseren Standorten oder bundesweite Direktlieferung bis auf Ihren Betriebshof."
+      desc: "Wahlweise bequeme Selbstabholung an unseren Standorten oder bundesweite Direktlieferung bis zu Ihrem Betriebshof."
     },
     {
       num: "03",
       icon: <Percent className="h-6 w-6 text-accent" />,
       title: "GEFA Finanzierung",
-      desc: "Maßgeschneiderte Leasing-, Mietkauf- und Finanzierungsangebote direkt über unseren starken Partner, die GEFA Bank."
+      desc: "Maßgeschneidertes Leasing oder Finanzierung direkt über unseren starken Partner, die GEFA Bank."
     },
     {
       num: "04",
       icon: <Wrench className="h-6 w-6 text-accent" />,
       title: "Sonderaufbauten",
-      desc: "Koffer, Pritsche, Kühlkoffer oder Plane – wir realisieren Ihren individuellen Branchenaufbau exakt nach Ihren Vorgaben."
+      desc: "Koffer, Pritsche, Kühlkoffer oder Plane. Wir realisieren Ihren individuellen Branchenaufbau exakt nach Vorgabe."
     }
   ];
 
@@ -42,7 +42,7 @@ export default function USPSection() {
             Ein Ansprechpartner. Vier Leistungen.
           </h2>
           <p className="font-sans text-base text-muted leading-relaxed">
-            Wir reduzieren die Komplexität Ihres Fuhrparkmanagements. Verlassen Sie sich auf einheitliche Standards und exzellenten B2B-Rundumservice.
+            Wir reduzieren die Komplexität Ihres Fuhrparkmanagements. Sie verlassen sich auf einheitliche Standards und exzellenten B2B-Rundumservice.
           </p>
         </div>
 

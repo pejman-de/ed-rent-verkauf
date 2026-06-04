@@ -178,7 +178,7 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
             </span>
           </div>
           <h2 className="font-display font-extrabold text-3xl text-primary tracking-tight">
-            Unverbindliches Angebot anfordern
+            Unverbindliches Angebot anfordern.
           </h2>
           <p className="font-sans text-base text-muted leading-relaxed">
             Teilen Sie uns Ihre Anforderungen mit. Unser B2B-Team meldet sich innerhalb von 24 Stunden mit einem konkreten Angebot bei Ihnen.
@@ -192,7 +192,7 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
           <div className="bg-primary text-primary-foreground px-6 py-4 flex items-center justify-between border-b border-muted/20">
             <div className="flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-wider">
               <ShieldCheck className="h-4 w-4 text-accent" />
-              <span>B2B-Direktanfrage • 100% DSGVO-konform</span>
+              <span>B2B-Direktanfrage. 100% DSGVO-konform.</span>
             </div>
             <span className="text-[10px] font-sans text-primary-foreground/60 hidden sm:inline">
               Bearbeitungszeit: &lt; 24 Std.

@@ -17,7 +17,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="font-sans text-xs text-primary-foreground/70 max-w-sm leading-relaxed">
-              Ihr spezialisierter B2B-Partner für hochwertige Nutzfahrzeuge, Kastenwagen, Sprinter und LKW. Zuverlässige Beratung, maßgeschneiderte Sonderaufbauten und starke Finanzierungskonditionen.
+              Ihr spezialisierter B2B-Partner für hochwertige Nutzfahrzeuge. Kauf, Leasing, Sonderaufbauten und Finanzierung aus einer Hand.
             </p>
           </div>
 

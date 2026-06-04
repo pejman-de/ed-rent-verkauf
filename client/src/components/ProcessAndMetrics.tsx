@@ -18,13 +18,13 @@ export default function ProcessAndMetrics() {
       num: "03",
       icon: <CalendarRange className="h-5 w-5 text-accent" />,
       title: "Finanzierung & Vertrag",
-      desc: "Wir wickeln die Finanzierungszusage (z.B. GEFA Bank) schnell und unkompliziert direkt mit Ihnen ab."
+      desc: "Wir wickeln die Finanzierung passgenau über die GEFA Bank ab und unterschreiben unkompliziert mit Ihnen."
     },
     {
       num: "04",
       icon: <KeyRound className="h-5 w-5 text-accent" />,
       title: "Übergabe / Lieferung",
-      desc: "Ihr fahrbereites Nutzfahrzeug steht zur Abholung bereit oder wird termingerecht direkt zu Ihnen geliefert."
+      desc: "Ihr fahrbereites Nutzfahrzeug wird zur Abholung bereitgestellt oder termingerecht direkt zu Ihnen geliefert."
     }
   ];
 
@@ -32,22 +32,22 @@ export default function ProcessAndMetrics() {
     {
       value: "24h",
       label: "Angebotsgarantie",
-      desc: "Präzises Angebot in Rekordzeit"
+      desc: "Präzises Angebot in Rekordzeit."
     },
     {
       value: "Vor Ort",
       label: "Persönlicher Service",
-      desc: "Beratung & Übergabe direkt bei Ihnen"
+      desc: "Beratung & Übergabe direkt bei Ihnen."
     },
     {
       value: "GEFA Partner",
       label: "Starke Finanzierung",
-      desc: "Top-Konditionen für Gewerbe"
+      desc: "Top-Konditionen für Gewerbe."
     },
     {
       value: "+ Aufbau",
       label: "Sonderaufbauten",
-      desc: "Koffer, Pritsche & Plane nach Maß"
+      desc: "Koffer, Pritsche & Plane nach Maß."
     }
   ];
 
@@ -62,7 +62,7 @@ export default function ProcessAndMetrics() {
               In 4 einfachen Schritten
             </span>
             <h2 className="font-display font-extrabold text-3xl text-primary tracking-tight">
-              Ihr Weg zum neuen Nutzfahrzeug
+              Ihr Weg zum neuen Nutzfahrzeug.
             </h2>
           </div>
 

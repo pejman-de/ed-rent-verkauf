@@ -17,7 +17,7 @@ export default function SocialProof() {
               Erfahrung mit Fahrzeugen führender Hersteller.
             </h2>
             <p className="font-sans text-xs font-semibold text-muted tracking-wider uppercase mt-1">
-              Beste Konditionen & Voller Service
+              Beste Konditionen & voller Service.
             </p>
           </div>
 
