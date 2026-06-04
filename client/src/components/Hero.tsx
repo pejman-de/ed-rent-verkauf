@@ -30,7 +30,7 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
             </div>
             
             <h1 className="font-display font-extrabold text-4xl tracking-tight text-primary sm:text-5xl lg:text-6xl leading-[1.1] whitespace-pre-line">
-              Vom Sprinter bis zum LKW.{"\n"}
+              Vom Sprinter bis LKW.{"\n"}
               Neu und gebraucht.{"\n"}
               Aus einer Hand.
             </h1>
