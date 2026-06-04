@@ -1,25 +1,80 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+import { useState } from "react";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import SocialProof from "@/components/SocialProof";
+import InteractiveGallery from "@/components/InteractiveGallery";
+import USPSection from "@/components/USPSection";
+import ProcessAndMetrics from "@/components/ProcessAndMetrics";
+import ProofBlock from "@/components/ProofBlock";
+import DealerPath from "@/components/DealerPath";
+import LeadForm from "@/components/LeadForm";
+import FAQ from "@/components/FAQ";
+import Footer from "@/components/Footer";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
- */
 export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+  const [selectedVehicle, setSelectedVehicle] = useState<string>("");
+
+  // Smooth scroll to inquiry form
+  const scrollToAnfrage = (vehicleName?: string) => {
+    if (vehicleName) {
+      setSelectedVehicle(vehicleName);
+    } else {
+      setSelectedVehicle("");
+    }
+    
+    const element = document.getElementById("anfrage");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Smooth scroll to gallery
+  const scrollToGallery = () => {
+    const element = document.getElementById("gallery");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      {/* Sticky Header */}
+      <Header onCtaClick={() => scrollToAnfrage()} />
+
+      <main className="flex-grow">
+        {/* Hero Section */}
+        <Hero
+          onPrimaryClick={() => scrollToAnfrage()}
+          onSecondaryClick={scrollToGallery}
+        />
+
+        {/* Social Proof Brand Bar */}
+        <SocialProof />
+
+        {/* Interactive Gallery (Core Element) */}
+        <InteractiveGallery onInquireClick={scrollToAnfrage} />
+
+        {/* USP Section */}
+        <USPSection />
+
+        {/* Process & Trust Metrics */}
+        <ProcessAndMetrics />
+
+        {/* Proof Block */}
+        <ProofBlock />
+
+        {/* Dealer Path (Power-Conversion block) */}
+        <DealerPath onCtaClick={() => scrollToAnfrage("Händler-Paketanfrage")} />
+
+        {/* Lead Form Section with Complex Logic */}
+        <LeadForm prefilledVehicle={selectedVehicle} />
+
+        {/* FAQ Section */}
+        <FAQ />
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
