@@ -10,18 +10,12 @@ export default function Header({ onCtaClick }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b border-muted/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="container flex h-20 items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center bg-primary text-accent font-display font-bold text-xl rounded-sm">
-            ED
-          </div>
-          <div className="flex flex-col">
-            <span className="font-display font-extrabold text-lg tracking-tight text-primary leading-none">
-              ED RENT & SALE
-            </span>
-            <span className="font-sans text-xs font-semibold tracking-wider text-muted uppercase mt-0.5">
-              Nutzfahrzeuge
-            </span>
-          </div>
+        <div className="flex items-center">
+          <img 
+            src="/manus-storage/logo_cropped_078d6d4b.png" 
+            alt="ED Rent & Sale Logo" 
+            className="h-14 md:h-16 w-auto object-contain"
+          />
         </div>
 
         {/* Navigation / Actions */}

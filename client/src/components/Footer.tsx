@@ -8,13 +8,12 @@ export default function Footer() {
           
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center bg-background text-primary font-display font-bold text-lg rounded-sm">
-                ED
-              </div>
-              <span className="font-display font-extrabold text-lg tracking-tight text-primary-foreground">
-                ED RENT & SALE
-              </span>
+            <div className="flex items-center">
+              <img 
+                src="/manus-storage/logo_cropped_078d6d4b.png" 
+                alt="ED Rent & Sale Logo" 
+                className="h-16 md:h-20 w-auto object-contain brightness-0 invert"
+              />
             </div>
             <p className="font-sans text-xs text-primary-foreground/70 max-w-sm leading-relaxed">
               Ihr spezialisierter B2B-Partner für hochwertige Nutzfahrzeuge. Kauf, Leasing, Sonderaufbauten und Finanzierung aus einer Hand.
