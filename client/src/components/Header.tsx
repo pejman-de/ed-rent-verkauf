@@ -21,15 +21,15 @@ export default function Header({ onCtaClick }: HeaderProps) {
         {/* Navigation / Actions */}
         <div className="flex items-center gap-6">
           <a
-            href="tel:+498001234567"
+            href="tel:+4921758845535"
             className="hidden sm:flex items-center gap-2 font-sans text-sm font-bold text-primary hover:text-accent transition-colors"
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-secondary text-primary">
               <Phone className="h-4 w-4" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xs text-muted font-normal">Kostenfreie Beratung</span>
-              <span>+49 (0) 800 123 4567</span>
+              <span className="text-xs text-muted font-normal">Direkt-Durchwahl</span>
+              <span>+49 2175 8845535</span>
             </div>
           </a>
 

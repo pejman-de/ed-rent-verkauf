@@ -35,11 +35,11 @@ const formSchema = z.object({
   offer_type: z.string(),
   page_variant: z.string(),
 }).superRefine((data, ctx) => {
-  // Conditional validation: If lead_path is "paket", stueckzahl must be at least 10
-  if (data.lead_path === "paket" && data.stueckzahl < 10) {
+  // Conditional validation: If lead_path is "paket", stueckzahl must be at least 2
+  if (data.lead_path === "paket" && data.stueckzahl < 2) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: "Als Händler / Paketabnehmer müssen Sie mindestens 10 Fahrzeuge anfragen.",
+      message: "Für eine Paketanfrage gib bitte mindestens 2 Fahrzeuge an.",
       path: ["stueckzahl"],
     });
   }
@@ -98,9 +98,9 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
 
   // Adjust Stückzahl default based on lead path selection
   useEffect(() => {
-    if (watchLeadPath === "paket" && watchStueckzahl < 10) {
-      setValue("stueckzahl", 10);
-    } else if (watchLeadPath === "einzel" && watchStueckzahl >= 10) {
+    if (watchLeadPath === "paket" && watchStueckzahl < 2) {
+      setValue("stueckzahl", 2);
+    } else if (watchLeadPath === "einzel" && watchStueckzahl > 1) {
       setValue("stueckzahl", 1);
     }
   }, [watchLeadPath, setValue]);
@@ -116,9 +116,9 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
       // Rule 1: Score A (Hot)
-      // IF (lead_path == "paket" AND Stückzahl >= 10) OR (Finanzierung gewünscht == "Ja" AND Wunschtermin < 14 days from today)
+      // IF (lead_path == "paket" AND Stückzahl >= 2) OR (Finanzierung gewünscht == "Ja" AND Wunschtermin < 14 days from today)
       if (
-        (data.lead_path === "paket" && data.stueckzahl >= 10) ||
+        (data.lead_path === "paket" && data.stueckzahl >= 2) ||
         (data.finanzierung === "Ja" && diffDays < 14)
       ) {
         return "Hot";
@@ -219,7 +219,7 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                     <RadioGroupItem value="einzel" id="r-einzel" className="text-primary border-primary" />
                     <Label htmlFor="r-einzel" className="font-sans font-bold text-sm text-primary cursor-pointer flex flex-col">
                       <span>Einzelkauf</span>
-                      <span className="text-xs font-normal text-muted mt-0.5">Bedarf unter 10 Fahrzeugen</span>
+                      <span className="text-xs font-normal text-muted mt-0.5">Bedarf an einzelnen Fahrzeugen</span>
                     </Label>
                   </div>
 
@@ -231,7 +231,7 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                     <RadioGroupItem value="paket" id="r-paket" className="text-primary border-primary" />
                     <Label htmlFor="r-paket" className="font-sans font-bold text-sm text-primary cursor-pointer flex flex-col">
                       <span>Händler / Paketabnahme</span>
-                      <span className="text-xs font-normal text-muted mt-0.5">Sonderkonditionen ab 10 Fahrzeugen</span>
+                      <span className="text-xs font-normal text-muted mt-0.5">Sonderkonditionen ab mehreren Fahrzeugen</span>
                     </Label>
                   </div>
                 </RadioGroup>

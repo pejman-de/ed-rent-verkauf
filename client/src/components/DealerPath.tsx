@@ -10,7 +10,7 @@ export default function DealerPath({ onCtaClick }: DealerPathProps) {
     {
       icon: <BadgePercent className="h-5 w-5 text-accent" />,
       title: "Attraktive Mengenrabatte",
-      desc: "Gestaffelte Sonderkonditionen und exklusive Einkaufspreise ab einer Abnahme von 10 Fahrzeugen."
+      desc: "Gestaffelte Sonderkonditionen und exklusive Einkaufspreise ab der Abnahme mehrerer Fahrzeuge."
     },
     {
       icon: <Sparkles className="h-5 w-5 text-accent" />,
@@ -42,7 +42,7 @@ export default function DealerPath({ onCtaClick }: DealerPathProps) {
               </div>
               
               <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-primary-foreground tracking-tight leading-tight">
-                Ab 10 Fahrzeugen: <br />
+                Ab mehreren Fahrzeugen: <br />
                 Sonderkonditionen & Rahmenverträge.
               </h2>
               
