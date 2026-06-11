@@ -1,4 +1,10 @@
-export default function Footer() {
+import { Link } from "wouter";
+
+interface FooterProps {
+  onScrollToTop?: () => void;
+}
+
+export default function Footer({ onScrollToTop }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -65,8 +71,8 @@ export default function Footer() {
             © {currentYear} ED Rent & Sale GmbH. Alle Rechte vorbehalten.
           </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-accent transition-colors">Impressum</a>
-            <a href="#" className="hover:text-accent transition-colors">Datenschutz</a>
+            <Link href="/impressum" onClick={onScrollToTop} className="hover:text-accent transition-colors">Impressum</Link>
+            <Link href="/datenschutz" onClick={onScrollToTop} className="hover:text-accent transition-colors">Datenschutz</Link>
             <a href="#" className="hover:text-accent transition-colors">AGB</a>
           </div>
         </div>
