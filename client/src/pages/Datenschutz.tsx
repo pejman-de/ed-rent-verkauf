@@ -52,7 +52,7 @@ export default function Datenschutz() {
                   1.1 Wir freuen uns, dass Sie unsere Website besuchen und bedanken uns für Ihr Interesse. Im Folgenden informieren wir Sie über den Umgang mit Ihren personenbezogenen Daten bei der Nutzung unserer Website. Personenbezogene Daten sind hierbei alle Daten, mit denen Sie persönlich identifiziert werden können.
                 </p>
                 <p>
-                  1.2 Verantwortlicher für die Datenverarbeitung auf dieser Website im Sinne der Datenschutz-Grundverordnung (DSGVO) ist <span className="text-primary font-semibold">ED Rent and Sale</span>, Bremsen 13 A, 42799 Leichlingen (Rheinland), Deutschland, Tel.: 021758845535, E-Mail: info@ed-sale.de . Der für die Verarbeitung von personenbezogenen Daten Verantwortliche ist diejenige natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten entscheidet.
+                  1.2 Verantwortlicher für die Datenverarbeitung auf dieser Website im Sinne der Datenschutz-Grundverordnung (DSGVO) is <span className="text-primary font-semibold">ED Rent and Sale</span>, Bremsen 13 A, 42799 Leichlingen (Rheinland), Deutschland, Tel.: 021758845535, E-Mail: info@ed-rent.com . Der für die Verarbeitung von personenbezogenen Daten Verantwortliche ist diejenige natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten entscheidet.
                 </p>
               </div>
             </section>

@@ -80,7 +80,7 @@ export default function Impressum() {
                 </p>
                 <p className="flex items-center gap-2">
                   <span className="font-semibold">E-Mail:</span>
-                  <a href="mailto:info@ed-sale.de" className="hover:text-accent transition-colors">info@ed-sale.de</a>
+                  <a href="mailto:info@ed-rent.com" className="hover:text-accent transition-colors">info@ed-rent.com</a>
                 </p>
               </div>
             </div>

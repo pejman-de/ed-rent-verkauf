@@ -52,8 +52,8 @@ export default function Footer({ onScrollToTop }: FooterProps) {
               </li>
               <li>
                 <span className="font-semibold text-primary-foreground">E-Mail:</span>{" "}
-                <a href="mailto:info@ed-sale.de" className="hover:text-accent transition-colors">
-                  info@ed-sale.de
+                <a href="mailto:info@ed-rent.com" className="hover:text-accent transition-colors">
+                  info@ed-rent.com
                 </a>
               </li>
               <li>
