@@ -32,10 +32,9 @@ export default function Footer({ onScrollToTop }: FooterProps) {
               Kontakt
             </h4>
             <ul className="font-sans text-xs text-primary-foreground/70 space-y-2">
-              <li>ED Rent & Sale GmbH</li>
-              <li>Nutzfahrzeugzentrum West</li>
-              <li>Industriestraße 45</li>
-              <li>40210 Düsseldorf</li>
+              <li>ED Rent and Sale</li>
+              <li>Bremsen 13 A</li>
+              <li>42799 Leichlingen (Rheinland)</li>
             </ul>
           </div>
 
@@ -53,8 +52,8 @@ export default function Footer({ onScrollToTop }: FooterProps) {
               </li>
               <li>
                 <span className="font-semibold text-primary-foreground">E-Mail:</span>{" "}
-                <a href="mailto:info@ed-rent-sale.de" className="hover:text-accent transition-colors">
-                  info@ed-rent-sale.de
+                <a href="mailto:info@ed-sale.de" className="hover:text-accent transition-colors">
+                  info@ed-sale.de
                 </a>
               </li>
               <li>
@@ -68,7 +67,7 @@ export default function Footer({ onScrollToTop }: FooterProps) {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-primary-foreground/10 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-[10px] text-primary-foreground/50 uppercase tracking-wider">
           <div>
-            © {currentYear} ED Rent & Sale GmbH. Alle Rechte vorbehalten.
+            © {currentYear} ED Rent and Sale. Alle Rechte vorbehalten.
           </div>
           <div className="flex gap-6">
             <Link href="/impressum" onClick={onScrollToTop} className="hover:text-accent transition-colors">Impressum</Link>
