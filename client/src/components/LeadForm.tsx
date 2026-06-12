@@ -255,7 +255,7 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                       ? "bg-accent text-accent-foreground border-accent" 
                       : "bg-secondary text-muted border-muted/20"
                   }`}>
-                    "2"
+                    2
                   </div>
                   <span className={`font-bold ${step === 2 ? "text-primary" : "text-muted-foreground"}`}>
                     Ihre Kontaktdaten
@@ -274,41 +274,41 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                   {/* Top Level Toggle (Radio Group) */}
                   <div className="space-y-3">
                     <Label className="font-display font-bold text-sm text-primary">Anfrage-Typ</Label>
-                    <RadioGroup
-                      value={watchLeadPath}
-                      onValueChange={(val) => setValue("lead_path", val as "einzel" | "paket")}
-                      className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                    >
-                      <div 
-                        onClick={() => setValue("lead_path", "einzel")}
-                        className={`flex items-center space-x-3 p-4 border rounded-sm cursor-pointer min-h-[52px] transition-colors ${
-                          watchLeadPath === "einzel"
-                            ? "border-primary bg-secondary/30"
-                            : "border-muted/20 hover:border-muted/40"
-                        }`}
-                      >
-                        <RadioGroupItem value="einzel" id="r-einzel" className="text-primary border-primary shrink-0" />
-                        <Label htmlFor="r-einzel" className="font-sans font-bold text-sm text-primary cursor-pointer flex flex-col">
-                          <span>Einzelkauf</span>
-                          <span className="text-xs font-normal text-muted mt-0.5">Bedarf an einzelnen Fahrzeugen</span>
-                        </Label>
-                      </div>
+                <RadioGroup
+                  value={watchLeadPath}
+                  onValueChange={(val) => setValue("lead_path", val as "einzel" | "paket")}
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                >
+                  <Label
+                    htmlFor="r-einzel"
+                    className={`flex items-center space-x-3 p-4 border rounded-sm cursor-pointer min-h-[52px] transition-colors ${
+                      watchLeadPath === "einzel"
+                        ? "border-primary bg-secondary/30"
+                        : "border-muted/20 hover:border-muted/40"
+                    }`}
+                  >
+                    <RadioGroupItem value="einzel" id="r-einzel" className="text-primary border-primary shrink-0" />
+                    <div className="font-sans font-bold text-sm text-primary flex flex-col">
+                      <span>Einzelkauf</span>
+                      <span className="text-xs font-normal text-muted mt-0.5">Bedarf an einzelnen Fahrzeugen</span>
+                    </div>
+                  </Label>
 
-                      <div 
-                        onClick={() => setValue("lead_path", "paket")}
-                        className={`flex items-center space-x-3 p-4 border rounded-sm cursor-pointer min-h-[52px] transition-colors ${
-                          watchLeadPath === "paket"
-                            ? "border-primary bg-secondary/30"
-                            : "border-muted/20 hover:border-muted/40"
-                        }`}
-                      >
-                        <RadioGroupItem value="paket" id="r-paket" className="text-primary border-primary shrink-0" />
-                        <Label htmlFor="r-paket" className="font-sans font-bold text-sm text-primary cursor-pointer flex flex-col">
-                          <span>Händler / Paketabnahme</span>
-                          <span className="text-xs font-normal text-muted mt-0.5">Sonderkonditionen ab mehreren Fahrzeugen</span>
-                        </Label>
-                      </div>
-                    </RadioGroup>
+                  <Label
+                    htmlFor="r-paket"
+                    className={`flex items-center space-x-3 p-4 border rounded-sm cursor-pointer min-h-[52px] transition-colors ${
+                      watchLeadPath === "paket"
+                        ? "border-primary bg-secondary/30"
+                        : "border-muted/20 hover:border-muted/40"
+                    }`}
+                  >
+                    <RadioGroupItem value="paket" id="r-paket" className="text-primary border-primary shrink-0" />
+                    <div className="font-sans font-bold text-sm text-primary flex flex-col">
+                      <span>Händler / Paketabnahme</span>
+                      <span className="text-xs font-normal text-muted mt-0.5">Sonderkonditionen ab mehreren Fahrzeugen</span>
+                    </div>
+                  </Label>
+                </RadioGroup>
                   </div>
 
                   {/* Main Form Fields Grid */}
@@ -603,7 +603,7 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                       ) : (
                         <>
                           <Send className="h-5 w-5" />
-                          <span>Unverbindliche B2B-Anfrage absenden</span>
+                          <span>Anfrage absenden</span>
                         </>
                       )}
                     </Button>
