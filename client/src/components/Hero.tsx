@@ -24,14 +24,15 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3 py-1 text-xs font-semibold text-brand-navy md:text-sm">
               <span className="flex h-2 w-2 rounded-full bg-brand-cyan animate-pulse" />
-              <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-cyan">
+              <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-navy">
                 B2B Nutzfahrzeug-Spezialist
               </span>
             </div>
             
             <h1 className="font-display font-extrabold text-4xl tracking-tight text-brand-navy sm:text-5xl md:text-6xl lg:leading-[1.1] whitespace-pre-line">
               Vom Sprinter bis LKW.{"\n"}
-              <span className="block text-brand-cyan mt-1">Neu und gebraucht. Aus einer Hand.</span>
+              <span className="block text-brand-cyan mt-1">Neu und gebraucht. 
+Aus einer Hand.</span>
             </h1>
             
             <p className="font-sans text-lg text-brand-grey leading-relaxed md:text-xl max-w-xl">
