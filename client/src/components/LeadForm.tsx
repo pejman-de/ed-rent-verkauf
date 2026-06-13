@@ -21,7 +21,7 @@ const formSchema = z.object({
   lead_path: z.enum(["einzel", "paket"]),
   fahrzeugtyp: z.string().min(1, "Bitte wählen Sie einen Fahrzeugtyp."),
   condition: z.enum(["Neu", "Gebraucht"]),
-  abholung_lieferung: z.enum(["Abholung", "Lieferung"]),
+  abholung_lieferung: z.enum(["Selbstabholung", "Lieferung"]),
   wunschtermin: z.string().min(1, "Bitte wählen Sie einen Wunschtermin."),
   einsatzregion: z.string().min(5, "Bitte geben Sie eine gültige PLZ oder Region ein."),
   stueckzahl: z.number().int().min(1, "Mindestens 1 Fahrzeug."),
@@ -78,7 +78,7 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
       lead_path: "einzel",
       fahrzeugtyp: prefilledVehicle || "",
       condition: "Neu",
-      abholung_lieferung: "Abholung",
+      abholung_lieferung: "Selbstabholung",
       wunschtermin: "",
       einsatzregion: "",
       stueckzahl: 1,
@@ -367,13 +367,13 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                       </Label>
                       <Select
                         value={watchAbholungLieferung}
-                        onValueChange={(val) => setValue("abholung_lieferung", val as "Abholung" | "Lieferung")}
+                        onValueChange={(val) => setValue("abholung_lieferung", val as "Selbstabholung" | "Lieferung")}
                       >
                         <SelectTrigger className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary">
                           <SelectValue placeholder="Logistik wählen" />
                         </SelectTrigger>
                         <SelectContent className="bg-background border-muted/20 rounded-sm">
-                          <SelectItem value="Abholung" className="text-sm md:text-xs font-medium text-primary">Selbstabholung (Zentrallager)</SelectItem>
+                          <SelectItem value="Selbstabholung" className="text-sm md:text-xs font-medium text-primary">Selbstabholung (Zentrallager)</SelectItem>
                           <SelectItem value="Lieferung" className="text-sm md:text-xs font-medium text-primary">Bundesweite Lieferung</SelectItem>
                         </SelectContent>
                       </Select>
