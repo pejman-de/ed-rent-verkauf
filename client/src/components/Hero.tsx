@@ -44,7 +44,7 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
             <Button
               onClick={onPrimaryClick}
               size="lg"
-              className="bg-brand-cyan text-brand-navy hover:bg-brand-cyan/90 font-bold text-base px-8 py-6 shadow-lg shadow-brand-cyan/10 hover:shadow-brand-cyan/20 transition-all active:scale-97 flex items-center justify-center gap-2 rounded-xl"
+              className="bg-brand-cyan text-brand-navy hover:bg-brand-cyan/90 font-bold text-base px-8 py-6 shadow-lg shadow-brand-cyan/10 hover:shadow-brand-cyan/20 transition-all active:scale-97 flex items-center justify-center gap-2 rounded-xl" style={{height: '48px'}}
             >
               <span>Fahrzeug konfigurieren</span>
               <ArrowRight className="h-5 w-5 text-brand-navy" />
@@ -54,7 +54,7 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
               onClick={onSecondaryClick}
               size="lg"
               variant="outline"
-              className="border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white font-semibold text-base px-8 py-6 transition-all active:scale-97 flex items-center justify-center rounded-xl"
+              className="border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white font-semibold text-base px-8 py-6 transition-all active:scale-97 flex items-center justify-center rounded-xl" style={{height: '48px'}}
             >
               Fahrzeugbestand ansehen
             </Button>
