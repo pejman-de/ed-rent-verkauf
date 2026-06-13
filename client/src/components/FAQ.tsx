@@ -36,7 +36,7 @@ export default function FAQ() {
             Häufig gestellte Fragen
           </span>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-brand-navy tracking-tight">
-            Fragen & Antworten.
+            Fragen & Antworten
           </h2>
           <p className="font-sans text-base text-brand-grey leading-relaxed">
             Hier finden Sie schnelle Antworten auf die wichtigsten Fragen rund um den Fahrzeugkauf, Sonderaufbauten und die Finanzierung bei ED Rent & Sale.
