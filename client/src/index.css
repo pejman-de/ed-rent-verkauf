@@ -4,14 +4,19 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Sora", sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
   
+  --color-brand-navy: #1F2E57;
+  --color-brand-cyan: #4FB0E6;
+  --color-brand-grey: #6E7C95;
+  --color-brand-light: #F8F9FA;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -42,76 +47,53 @@
 }
 
 :root {
-  /* ED Rent & Sale - Deutscher Industrie-Minimalismus */
-  /* Primary: #1F2E57 (Navy) -> oklch(0.28 0.08 260) */
-  --primary: oklch(0.28 0.08 260);
-  --primary-foreground: oklch(0.98 0.01 260);
-  
-  /* Accent: #4FB0E6 (Cyan) -> oklch(0.74 0.16 220) */
-  --accent: oklch(0.74 0.16 220);
-  --accent-foreground: oklch(0.28 0.08 260); /* AAA Accessibility */
-  
-  /* Muted: #6E7C95 (Grey-Blue) -> oklch(0.56 0.04 250) */
-  --muted: oklch(0.56 0.04 250);
-  --muted-foreground: oklch(0.42 0.04 250);
+  --primary: #1F2E57; 
+  --primary-foreground: #FFFFFF;
+  --accent: #4FB0E6;  
+  --accent-foreground: #1F2E57;
+  --secondary: #6E7C95; 
+  --secondary-foreground: #FFFFFF;
+  --background: #FFFFFF; 
+  --foreground: #1F2E57;
+  --card: #FFFFFF; 
+  --card-foreground: #1F2E57;
+  --popover: #FFFFFF; 
+  --popover-foreground: #1F2E57;
+  --muted: #F8F9FA; 
+  --muted-foreground: #6E7C95;
+  --border: #E5E7EB; 
+  --input: #E5E7EB; 
+  --ring: #4FB0E6;
+  --radius: 0.5rem; /* 8px based on the prompt's radius token */
 
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.20 0.02 260);
-  
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.20 0.02 260);
-  
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.20 0.02 260);
-  
-  --secondary: oklch(0.96 0.01 260);
-  --secondary-foreground: oklch(0.28 0.08 260);
-  
-  --destructive: oklch(0.55 0.18 25);
-  --destructive-foreground: oklch(0.98 0 0);
-  
-  --border: oklch(0.90 0.02 250);
-  --input: oklch(0.90 0.02 250);
-  --ring: oklch(0.74 0.16 220);
-  
-  --radius: 0.25rem; /* Robust, eckigerer Industrie-Look (4px) */
-  
-  --sidebar: oklch(0.98 0.01 260);
-  --sidebar-foreground: oklch(0.20 0.02 260);
-  --sidebar-accent: oklch(0.96 0.01 260);
-  --sidebar-accent-foreground: oklch(0.28 0.08 260);
-  --sidebar-border: oklch(0.90 0.02 250);
-  --sidebar-ring: oklch(0.74 0.16 220);
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1F2E57;
+  --sidebar-accent: #F8F9FA;
+  --sidebar-accent-foreground: #1F2E57;
+  --sidebar-border: #E5E7EB;
+  --sidebar-ring: #4FB0E6;
 }
 
 .dark {
-  /* Keep same as light mode to enforce clean white industrial design */
-  --primary: oklch(0.28 0.08 260);
-  --primary-foreground: oklch(0.98 0.01 260);
-  --accent: oklch(0.74 0.16 220);
-  --accent-foreground: oklch(0.28 0.08 260);
-  --muted: oklch(0.56 0.04 250);
-  --muted-foreground: oklch(0.42 0.04 250);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.20 0.02 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.20 0.02 260);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.20 0.02 260);
-  --secondary: oklch(0.96 0.01 260);
-  --secondary-foreground: oklch(0.28 0.08 260);
-  --destructive: oklch(0.55 0.18 25);
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.90 0.02 250);
-  --input: oklch(0.90 0.02 250);
-  --ring: oklch(0.74 0.16 220);
-  --radius: 0.25rem;
-  --sidebar: oklch(0.98 0.01 260);
-  --sidebar-foreground: oklch(0.20 0.02 260);
-  --sidebar-accent: oklch(0.96 0.01 260);
-  --sidebar-accent-foreground: oklch(0.28 0.08 260);
-  --sidebar-border: oklch(0.90 0.02 250);
-  --sidebar-ring: oklch(0.74 0.16 220);
+  /* Enforce light theme as per prompt instructions (B2B clean design) */
+  --primary: #1F2E57; 
+  --primary-foreground: #FFFFFF;
+  --accent: #4FB0E6;  
+  --accent-foreground: #1F2E57;
+  --secondary: #6E7C95; 
+  --secondary-foreground: #FFFFFF;
+  --background: #FFFFFF; 
+  --foreground: #1F2E57;
+  --card: #FFFFFF; 
+  --card-foreground: #1F2E57;
+  --popover: #FFFFFF; 
+  --popover-foreground: #1F2E57;
+  --muted: #F8F9FA; 
+  --muted-foreground: #6E7C95;
+  --border: #E5E7EB; 
+  --input: #E5E7EB; 
+  --ring: #4FB0E6;
+  --radius: 0.5rem;
 }
 
 @layer base {
@@ -119,7 +101,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased selection:bg-accent selection:text-accent-foreground;
+    @apply bg-background text-foreground antialiased font-sans
+           selection:bg-brand-cyan selection:text-brand-navy;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -135,25 +118,13 @@
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1rem; /* 16px - mobile padding */
     padding-right: 1rem;
+    max-width: 1280px;
   }
 
   .flex {
@@ -172,7 +143,6 @@
     .container {
       padding-left: 2rem; /* 32px - desktop padding */
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
     }
   }
 }

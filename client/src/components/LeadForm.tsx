@@ -16,7 +16,7 @@ import {
 import { toast } from "sonner";
 import { Loader2, Send, CheckCircle2, ShieldCheck, ArrowRight, ArrowLeft } from "lucide-react";
 
-// 1. Define Zod Validation Schema with conditional logic for Stückzahl & new contact fields
+// 1. Define Zod Validation Schema with conditional logic for Stückzahl & new contact fields & hidden fields
 const formSchema = z.object({
   lead_path: z.enum(["einzel", "paket"]),
   fahrzeugtyp: z.string().min(1, "Bitte wählen Sie einen Fahrzeugtyp."),
@@ -25,18 +25,22 @@ const formSchema = z.object({
   wunschtermin: z.string().min(1, "Bitte wählen Sie einen Wunschtermin."),
   einsatzregion: z.string().min(5, "Bitte geben Sie eine gültige PLZ oder Region ein."),
   stueckzahl: z.number().int().min(1, "Mindestens 1 Fahrzeug."),
-  // New contact fields (removing firma and ansprechpartner)
   vorname: z.string().min(2, "Bitte geben Sie Ihren Vornamen an."),
   nachname: z.string().min(2, "Bitte geben Sie Ihren Nachnamen an."),
   unternehmen: z.string().min(2, "Bitte geben Sie Ihr Unternehmen an."),
   email: z.string().min(1, "Bitte geben Sie Ihre E-Mail-Adresse an.").email("Bitte geben Sie eine gültige E-Mail-Adresse an."),
-  telefon: z.string().optional(), // Now optional
-  // Radio fields
+  telefon: z.string().optional(),
   finanzierung: z.enum(["Ja", "Nein"]),
   aufbau: z.enum(["Ja", "Nein"]),
   // Hidden fields state
   offer_type: z.string(),
   page_variant: z.string(),
+  // UTM parameters
+  utm_source: z.string().optional(),
+  utm_medium: z.string().optional(),
+  utm_campaign: z.string().optional(),
+  utm_term: z.string().optional(),
+  utm_content: z.string().optional(),
 }).superRefine((data, ctx) => {
   // Conditional validation: If lead_path is "paket", stueckzahl must be at least 2
   if (data.lead_path === "paket" && data.stueckzahl < 2) {
@@ -91,6 +95,11 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
       aufbau: "Nein",
       offer_type: "verkauf",
       page_variant: "lp-verkauf",
+      utm_source: "",
+      utm_medium: "",
+      utm_campaign: "",
+      utm_term: "",
+      utm_content: "",
     },
   });
 
@@ -103,6 +112,18 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
   const watchFinanzierung = watch("finanzierung");
   const watchAufbau = watch("aufbau");
 
+  // Read UTM parameters from URL on mount and set them
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setValue("utm_source", params.get("utm_source") || "");
+      setValue("utm_medium", params.get("utm_medium") || "");
+      setValue("utm_campaign", params.get("utm_campaign") || "");
+      setValue("utm_term", params.get("utm_term") || "");
+      setValue("utm_content", params.get("utm_content") || "");
+    }
+  }, [setValue]);
+
   // Update fahrzeugtyp when prefilledVehicle prop changes & reset to Step 1
   useEffect(() => {
     if (prefilledVehicle) {
@@ -111,7 +132,7 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
     }
   }, [prefilledVehicle, setValue]);
 
-  // Adjust Stückzahl default based on lead path selection (and watch watchStueckzahl)
+  // Adjust Stückzahl default based on lead path selection
   useEffect(() => {
     if (watchLeadPath === "paket" && watchStueckzahl < 2) {
       setValue("stueckzahl", 2);
@@ -131,7 +152,6 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
       // Rule 1: Score A (Hot)
-      // IF (lead_path == "paket" AND Stückzahl >= 2) OR (Finanzierung gewünscht == "Ja" AND Wunschtermin < 14 days from today)
       if (
         (data.lead_path === "paket" && data.stueckzahl >= 2) ||
         (data.finanzierung === "Ja" && diffDays < 14)
@@ -140,7 +160,6 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
       }
 
       // Rule 2: Score B (Warm)
-      // IF (lead_path == "einzel" AND Wunschtermin is between 14 and 30 days from today)
       if (
         data.lead_path === "einzel" &&
         diffDays >= 14 &&
@@ -150,7 +169,6 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
       }
 
       // Rule 3: Score C (Cold)
-      // No date provided or incomplete payload (fallback)
       return "Cold";
     } catch (e) {
       return "Cold";
@@ -195,69 +213,73 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
   };
 
   return (
-    <section id="anfrage" className="bg-secondary/30 py-12 md:py-24 border-b border-muted/10 scroll-mt-20">
-      <div className="container max-w-4xl">
+    <section id="anfrage" className="relative overflow-hidden bg-brand-light py-20 border-b border-brand-grey/10 scroll-mt-20">
+      {/* Tech-Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#6e7c950a_1px,transparent_1px),linear-gradient(to_bottom,#6e7c950a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      <div className="container relative z-10 max-w-4xl">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-8 md:mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 border border-muted/30 bg-background px-3 py-1 rounded-sm">
-            <span className="font-sans text-[10px] md:text-xs font-bold tracking-wider text-primary uppercase">
+        <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3 py-1 text-xs font-semibold text-brand-cyan">
+            <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-cyan">
               Direktanfrage
             </span>
           </div>
-          <h2 className="font-display font-extrabold text-2xl md:text-3xl text-primary tracking-tight">
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-brand-navy tracking-tight">
             Unverbindliches Angebot anfordern.
           </h2>
-          <p className="font-sans text-sm md:text-base text-muted leading-relaxed hidden sm:block">
+          <p className="font-sans text-base text-brand-grey leading-relaxed">
             Teilen Sie uns Ihre Anforderungen mit. Unser B2B-Team meldet sich innerhalb von 24 Stunden mit einem konkreten Angebot bei Ihnen.
           </p>
         </div>
-	
+		
         {/* Lead Form Container */}
-        <div className="bg-background border border-muted/20 rounded-sm shadow-lg overflow-hidden">
+        <div className="bg-white border border-brand-grey/15 rounded-2xl shadow-xl overflow-hidden">
           
           {/* Form Header Info Bar */}
-          <div className="bg-primary text-primary-foreground px-6 py-4 flex items-center justify-between border-b border-muted/20">
-            <div className="flex items-center gap-2 text-[10px] sm:text-xs font-sans font-bold uppercase tracking-wider truncate">
-              <ShieldCheck className="h-4 w-4 text-accent shrink-0" />
+          <div className="bg-brand-navy text-white px-6 py-4 flex items-center justify-between border-b border-brand-grey/15 relative overflow-hidden">
+            {/* Mini Tech-Grid on header */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:1rem_1rem]" />
+            <div className="relative z-10 flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-wider truncate">
+              <ShieldCheck className="h-4 w-4 text-brand-cyan shrink-0" />
               <span>B2B-Direktanfrage. 100% DSGVO-konform.</span>
             </div>
-            <span className="text-[10px] font-sans text-primary-foreground/60 hidden sm:inline shrink-0">
+            <span className="relative z-10 text-xs font-sans text-white/60 hidden sm:inline shrink-0">
               Bearbeitungszeit: &lt; 24 Std.
             </span>
           </div>
 
-          {/* Progress Indicator (Fortschrittsanzeige) */}
+          {/* Progress Indicator */}
           {!isSuccess && (
-            <div className="bg-secondary/10 px-6 py-4 border-b border-muted/10 flex items-center justify-between gap-4 font-sans text-xs">
+            <div className="bg-brand-light px-6 py-4 border-b border-brand-grey/15 flex items-center justify-between gap-4 font-sans text-xs">
               <div className="flex items-center gap-2 md:gap-3 w-full">
                 {/* Step 1 */}
                 <div className="flex items-center gap-2">
-                  <div className={`h-6 w-6 rounded-sm flex items-center justify-center font-bold transition-colors text-[11px] ${
+                  <div className={`h-6 w-6 rounded-lg flex items-center justify-center font-bold transition-colors text-[11px] ${
                     step === 1 
-                      ? "bg-accent text-accent-foreground" 
+                      ? "bg-brand-cyan text-brand-navy" 
                       : "bg-emerald-600 text-white"
                   }`}>
                     {step === 2 ? <CheckCircle2 className="h-4 w-4 stroke-[3]" /> : "1"}
                   </div>
-                  <span className={`font-bold ${step === 1 ? "text-primary" : "text-muted-foreground"}`}>
+                  <span className={`font-bold ${step === 1 ? "text-brand-navy" : "text-brand-grey"}`}>
                     Fahrzeug & Konditionen
                   </span>
                 </div>
 
                 {/* Line */}
-                <div className="flex-grow h-[1px] bg-muted/20" />
+                <div className="flex-grow h-[1px] bg-brand-grey/15" />
 
                 {/* Step 2 */}
                 <div className="flex items-center gap-2">
-                  <div className={`h-6 w-6 rounded-sm flex items-center justify-center font-bold border transition-colors text-[11px] ${
+                  <div className={`h-6 w-6 rounded-lg flex items-center justify-center font-bold border transition-colors text-[11px] ${
                     step === 2 
-                      ? "bg-accent text-accent-foreground border-accent" 
-                      : "bg-secondary text-muted border-muted/20"
+                      ? "bg-brand-cyan text-brand-navy border-brand-cyan" 
+                      : "bg-brand-light text-brand-grey border-brand-grey/15"
                   }`}>
                     2
                   </div>
-                  <span className={`font-bold ${step === 2 ? "text-primary" : "text-muted-foreground"}`}>
+                  <span className={`font-bold ${step === 2 ? "text-brand-navy" : "text-brand-grey"}`}>
                     Ihre Kontaktdaten
                   </span>
                 </div>
@@ -267,73 +289,81 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
 
           {!isSuccess ? (
             <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-10 space-y-6 md:space-y-8">
+              {/* Hidden UTM fields */}
+              <input type="hidden" {...register("offer_type")} />
+              <input type="hidden" {...register("page_variant")} />
+              <input type="hidden" {...register("utm_source")} />
+              <input type="hidden" {...register("utm_medium")} />
+              <input type="hidden" {...register("utm_campaign")} />
+              <input type="hidden" {...register("utm_term")} />
+              <input type="hidden" {...register("utm_content")} />
               
               {/* STEP 1: VEHICLE & CONDITIONS */}
               {step === 1 && (
                 <div className="space-y-6 md:space-y-8 pb-20 md:pb-0">
-                  {/* Top Level Toggle (Radio Group) */}
+                  {/* Top Level Toggle */}
                   <div className="space-y-3">
-                    <Label className="font-display font-bold text-sm text-primary">Anfrage-Typ</Label>
-                <RadioGroup
-                  value={watchLeadPath}
-                  onValueChange={(val) => setValue("lead_path", val as "einzel" | "paket")}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                >
-                  <Label
-                    htmlFor="r-einzel"
-                    className={`flex items-center space-x-3 p-4 border rounded-sm cursor-pointer min-h-[52px] transition-colors ${
-                      watchLeadPath === "einzel"
-                        ? "border-primary bg-secondary/30"
-                        : "border-muted/20 hover:border-muted/40"
-                    }`}
-                  >
-                    <RadioGroupItem value="einzel" id="r-einzel" className="text-primary border-primary shrink-0" />
-                    <div className="font-sans font-bold text-sm text-primary flex flex-col">
-                      <span>Einzelkauf</span>
-                      <span className="text-xs font-normal text-muted mt-0.5">Bedarf an einzelnen Fahrzeugen</span>
-                    </div>
-                  </Label>
+                    <Label className="font-display font-bold text-sm text-brand-navy">Anfrage-Typ</Label>
+                    <RadioGroup
+                      value={watchLeadPath}
+                      onValueChange={(val) => setValue("lead_path", val as "einzel" | "paket")}
+                      className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                    >
+                      <Label
+                        htmlFor="r-einzel"
+                        className={`flex items-center space-x-3 p-4 border rounded-xl cursor-pointer min-h-[52px] transition-all duration-200 ${
+                          watchLeadPath === "einzel"
+                            ? "border-brand-cyan bg-brand-cyan/5 shadow-md shadow-brand-cyan/5"
+                            : "border-brand-grey/15 hover:border-brand-grey/30 bg-white"
+                        }`}
+                      >
+                        <RadioGroupItem value="einzel" id="r-einzel" className="text-brand-cyan border-brand-grey/30 shrink-0" />
+                        <div className="font-sans font-bold text-sm text-brand-navy flex flex-col">
+                          <span>Einzelkauf</span>
+                          <span className="text-xs font-normal text-brand-grey mt-0.5">Bedarf an einzelnen Fahrzeugen</span>
+                        </div>
+                      </Label>
 
-                  <Label
-                    htmlFor="r-paket"
-                    className={`flex items-center space-x-3 p-4 border rounded-sm cursor-pointer min-h-[52px] transition-colors ${
-                      watchLeadPath === "paket"
-                        ? "border-primary bg-secondary/30"
-                        : "border-muted/20 hover:border-muted/40"
-                    }`}
-                  >
-                    <RadioGroupItem value="paket" id="r-paket" className="text-primary border-primary shrink-0" />
-                    <div className="font-sans font-bold text-sm text-primary flex flex-col">
-                      <span>Händler / Paketabnahme</span>
-                      <span className="text-xs font-normal text-muted mt-0.5">Sonderkonditionen ab mehreren Fahrzeugen</span>
-                    </div>
-                  </Label>
-                </RadioGroup>
+                      <Label
+                        htmlFor="r-paket"
+                        className={`flex items-center space-x-3 p-4 border rounded-xl cursor-pointer min-h-[52px] transition-all duration-200 ${
+                          watchLeadPath === "paket"
+                            ? "border-brand-cyan bg-brand-cyan/5 shadow-md shadow-brand-cyan/5"
+                            : "border-brand-grey/15 hover:border-brand-grey/30 bg-white"
+                        }`}
+                      >
+                        <RadioGroupItem value="paket" id="r-paket" className="text-brand-cyan border-brand-grey/30 shrink-0" />
+                        <div className="font-sans font-bold text-sm text-brand-navy flex flex-col">
+                          <span>Händler / Paketabnahme</span>
+                          <span className="text-xs font-normal text-brand-grey mt-0.5">Sonderkonditionen ab mehreren Fahrzeugen</span>
+                        </div>
+                      </Label>
+                    </RadioGroup>
                   </div>
 
                   {/* Main Form Fields Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     
-                    {/* Fahrzeugtyp (Select) */}
+                    {/* Fahrzeugtyp */}
                     <div className="space-y-2">
-                      <Label htmlFor="fahrzeugtyp" className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
+                      <Label htmlFor="fahrzeugtyp" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
                         Fahrzeugtyp / Wunschmodell *
                       </Label>
                       <Select
                         value={watchFahrzeugtyp}
                         onValueChange={(val) => setValue("fahrzeugtyp", val)}
                       >
-                        <SelectTrigger className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary">
+                        <SelectTrigger className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy">
                           <SelectValue placeholder="Bitte wählen..." />
                         </SelectTrigger>
-                        <SelectContent className="bg-background border-muted/20 rounded-sm">
-                          <SelectItem value="Mercedes-Benz Sprinter 317 CDI" className="text-sm md:text-xs font-medium text-primary">Mercedes-Benz Sprinter 317 CDI</SelectItem>
-                          <SelectItem value="Iveco Daily 35S18 Box" className="text-sm md:text-xs font-medium text-primary">Iveco Daily 35S18 Box</SelectItem>
-                          <SelectItem value="MAN TGE 3.180 Kasten" className="text-sm md:text-xs font-medium text-primary">MAN TGE 3.180 Kasten</SelectItem>
-                          <SelectItem value="Fiat Ducato L3H2" className="text-sm md:text-xs font-medium text-primary">Fiat Ducato L3H2</SelectItem>
-                          <SelectItem value="Opel Movano Cargo L2H2" className="text-sm md:text-xs font-medium text-primary">Opel Movano Cargo L2H2</SelectItem>
-                          <SelectItem value="Mercedes-Benz Atego 1223" className="text-sm md:text-xs font-medium text-primary">Mercedes-Benz Atego 1223</SelectItem>
-                          <SelectItem value="Individuelle Spezifikation" className="text-sm md:text-xs font-medium text-primary">Individuelle Spezifikation / Anderes Modell</SelectItem>
+                        <SelectContent className="bg-white border-brand-grey/15 rounded-xl">
+                          <SelectItem value="Mercedes-Benz Sprinter 317 CDI" className="text-sm font-medium text-brand-navy">Mercedes-Benz Sprinter 317 CDI</SelectItem>
+                          <SelectItem value="Iveco Daily 35S18 Box" className="text-sm font-medium text-brand-navy">Iveco Daily 35S18 Box</SelectItem>
+                          <SelectItem value="MAN TGE 3.180 Kasten" className="text-sm font-medium text-brand-navy">MAN TGE 3.180 Kasten</SelectItem>
+                          <SelectItem value="Fiat Ducato L3H2" className="text-sm font-medium text-brand-navy">Fiat Ducato L3H2</SelectItem>
+                          <SelectItem value="Opel Movano Cargo L2H2" className="text-sm font-medium text-brand-navy">Opel Movano Cargo L2H2</SelectItem>
+                          <SelectItem value="Mercedes-Benz Atego 1223" className="text-sm font-medium text-brand-navy">Mercedes-Benz Atego 1223</SelectItem>
+                          <SelectItem value="Individuelle Spezifikation" className="text-sm font-medium text-brand-navy">Individuelle Spezifikation / Anderes Modell</SelectItem>
                         </SelectContent>
                       </Select>
                       {errors.fahrzeugtyp && (
@@ -341,87 +371,35 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                       )}
                     </div>
 
-                    {/* Neu / Gebraucht (Select) */}
+                    {/* Zustand */}
                     <div className="space-y-2">
-                      <Label className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
-                        Zustand
+                      <Label htmlFor="condition" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
+                        Zustand *
                       </Label>
                       <Select
                         value={watchCondition}
                         onValueChange={(val) => setValue("condition", val as "Neu" | "Gebraucht")}
                       >
-                        <SelectTrigger className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary">
-                          <SelectValue placeholder="Zustand wählen" />
+                        <SelectTrigger className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy">
+                          <SelectValue placeholder="Bitte wählen..." />
                         </SelectTrigger>
-                        <SelectContent className="bg-background border-muted/20 rounded-sm">
-                          <SelectItem value="Neu" className="text-sm md:text-xs font-medium text-primary">Neufahrzeug</SelectItem>
-                          <SelectItem value="Gebraucht" className="text-sm md:text-xs font-medium text-primary">Gebrauchtfahrzeug</SelectItem>
+                        <SelectContent className="bg-white border-brand-grey/15 rounded-xl">
+                          <SelectItem value="Neu" className="text-sm font-medium text-brand-navy">Neufahrzeug</SelectItem>
+                          <SelectItem value="Gebraucht" className="text-sm font-medium text-brand-navy">Gebrauchtfahrzeug</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
-                    {/* Abholung oder Lieferung (Select) */}
+                    {/* Stückzahl */}
                     <div className="space-y-2">
-                      <Label className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
-                        Logistikoption
-                      </Label>
-                      <Select
-                        value={watchAbholungLieferung}
-                        onValueChange={(val) => setValue("abholung_lieferung", val as "Selbstabholung" | "Lieferung")}
-                      >
-                        <SelectTrigger className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary">
-                          <SelectValue placeholder="Logistik wählen" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-background border-muted/20 rounded-sm">
-                          <SelectItem value="Selbstabholung" className="text-sm md:text-xs font-medium text-primary">Selbstabholung (Zentrallager)</SelectItem>
-                          <SelectItem value="Lieferung" className="text-sm md:text-xs font-medium text-primary">Bundesweite Lieferung</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Wunschtermin (Date) */}
-                    <div className="space-y-2">
-                      <Label htmlFor="wunschtermin" className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
-                        Wunschtermin / Liefertermin *
-                      </Label>
-                      <Input
-                        type="date"
-                        id="wunschtermin"
-                        className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary"
-                        {...register("wunschtermin")}
-                      />
-                      {errors.wunschtermin && (
-                        <p className="text-xs font-semibold text-destructive">{errors.wunschtermin.message}</p>
-                      )}
-                    </div>
-
-                    {/* Einsatzregion / PLZ (Input) */}
-                    <div className="space-y-2">
-                      <Label htmlFor="einsatzregion" className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
-                        Einsatzregion / PLZ *
-                      </Label>
-                      <Input
-                        type="text"
-                        id="einsatzregion"
-                        placeholder="z.B. 40210 Düsseldorf"
-                        className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary"
-                        {...register("einsatzregion")}
-                      />
-                      {errors.einsatzregion && (
-                        <p className="text-xs font-semibold text-destructive">{errors.einsatzregion.message}</p>
-                      )}
-                    </div>
-
-                    {/* Stückzahl (Input / Number) */}
-                    <div className="space-y-2">
-                      <Label htmlFor="stueckzahl" className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
+                      <Label htmlFor="stueckzahl" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
                         Stückzahl *
                       </Label>
                       <Input
                         type="number"
                         id="stueckzahl"
-                        min="1"
-                        className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary"
+                        min={watchLeadPath === "paket" ? 2 : 1}
+                        className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy"
                         {...register("stueckzahl", { valueAsNumber: true })}
                       />
                       {errors.stueckzahl && (
@@ -429,78 +407,130 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                       )}
                     </div>
 
+                    {/* Wunschtermin */}
+                    <div className="space-y-2">
+                      <Label htmlFor="wunschtermin" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
+                        Wunschtermin für Übergabe *
+                      </Label>
+                      <Input
+                        type="date"
+                        id="wunschtermin"
+                        className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy"
+                        {...register("wunschtermin")}
+                      />
+                      {errors.wunschtermin && (
+                        <p className="text-xs font-semibold text-destructive">{errors.wunschtermin.message}</p>
+                      )}
+                    </div>
+
+                    {/* Logistikoption */}
+                    <div className="space-y-2">
+                      <Label htmlFor="abholung_lieferung" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
+                        Logistikoption *
+                      </Label>
+                      <Select
+                        value={watchAbholungLieferung}
+                        onValueChange={(val) => setValue("abholung_lieferung", val as "Selbstabholung" | "Lieferung")}
+                      >
+                        <SelectTrigger className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy">
+                          <SelectValue placeholder="Bitte wählen..." />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white border-brand-grey/15 rounded-xl">
+                          <SelectItem value="Selbstabholung" className="text-sm font-medium text-brand-navy">Selbstabholung (Standort Leichlingen)</SelectItem>
+                          <SelectItem value="Lieferung" className="text-sm font-medium text-brand-navy">Lieferung (Direkt zu Ihrem Betriebshof)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Einsatzregion / PLZ */}
+                    <div className="space-y-2">
+                      <Label htmlFor="einsatzregion" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
+                        Einsatzregion / PLZ *
+                      </Label>
+                      <Input
+                        type="text"
+                        id="einsatzregion"
+                        placeholder="z.B. 42799 oder Köln"
+                        className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy"
+                        {...register("einsatzregion")}
+                      />
+                      {errors.einsatzregion && (
+                        <p className="text-xs font-semibold text-destructive">{errors.einsatzregion.message}</p>
+                      )}
+                    </div>
+
                   </div>
 
-                  {/* Radio/Boolean Questions */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-muted/10">
-                    {/* Finanzierung gewünscht? */}
+                  {/* Radio fields for Finanzierung & Aufbau */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-brand-grey/10">
+                    {/* Finanzierung */}
                     <div className="space-y-3">
-                      <Label className="font-display font-bold text-sm text-primary">Finanzierung / Leasing gewünscht?</Label>
+                      <Label className="font-display font-bold text-sm text-brand-navy">Finanzierungs- / Leasingangebot erwünscht?</Label>
                       <RadioGroup
                         value={watchFinanzierung}
                         onValueChange={(val) => setValue("finanzierung", val as "Ja" | "Nein")}
                         className="flex gap-6"
                       >
                         <div className="flex items-center space-x-2 min-h-[44px]">
-                          <RadioGroupItem value="Ja" id="fin-ja" className="text-primary border-primary shrink-0" />
-                          <Label htmlFor="fin-ja" className="font-sans font-semibold text-sm text-primary cursor-pointer">Ja (z.B. GEFA Bank)</Label>
+                          <RadioGroupItem value="Ja" id="fin-ja" className="text-brand-cyan border-brand-grey/30 shrink-0" />
+                          <Label htmlFor="fin-ja" className="font-sans font-semibold text-sm text-brand-navy cursor-pointer">Ja (GEFA Bank Partner)</Label>
                         </div>
                         <div className="flex items-center space-x-2 min-h-[44px]">
-                          <RadioGroupItem value="Nein" id="fin-nein" className="text-primary border-primary shrink-0" />
-                          <Label htmlFor="fin-nein" className="font-sans font-semibold text-sm text-primary cursor-pointer">Nein (Kauf)</Label>
+                          <RadioGroupItem value="Nein" id="fin-nein" className="text-brand-cyan border-brand-grey/30 shrink-0" />
+                          <Label htmlFor="fin-nein" className="font-sans font-semibold text-sm text-brand-navy cursor-pointer">Nein (Eigenmittel)</Label>
                         </div>
                       </RadioGroup>
                     </div>
 
-                    {/* Aufbau gewünscht? */}
+                    {/* Sonderaufbau */}
                     <div className="space-y-3">
-                      <Label className="font-display font-bold text-sm text-primary">Sonderaufbau benötigt?</Label>
+                      <Label className="font-display font-bold text-sm text-brand-navy">Sonderaufbau benötigt?</Label>
                       <RadioGroup
                         value={watchAufbau}
                         onValueChange={(val) => setValue("aufbau", val as "Ja" | "Nein")}
                         className="flex gap-6"
                       >
                         <div className="flex items-center space-x-2 min-h-[44px]">
-                          <RadioGroupItem value="Ja" id="auf-ja" className="text-primary border-primary shrink-0" />
-                          <Label htmlFor="auf-ja" className="font-sans font-semibold text-sm text-primary cursor-pointer">Ja (Koffer, Pritsche etc.)</Label>
+                          <RadioGroupItem value="Ja" id="auf-ja" className="text-brand-cyan border-brand-grey/30 shrink-0" />
+                          <Label htmlFor="auf-ja" className="font-sans font-semibold text-sm text-brand-navy cursor-pointer">Ja (Koffer, Pritsche etc.)</Label>
                         </div>
                         <div className="flex items-center space-x-2 min-h-[44px]">
-                          <RadioGroupItem value="Nein" id="auf-nein" className="text-primary border-primary shrink-0" />
-                          <Label htmlFor="auf-nein" className="font-sans font-semibold text-sm text-primary cursor-pointer">Nein (Kasten/Standard)</Label>
+                          <RadioGroupItem value="Nein" id="auf-nein" className="text-brand-cyan border-brand-grey/30 shrink-0" />
+                          <Label htmlFor="auf-nein" className="font-sans font-semibold text-sm text-brand-navy cursor-pointer">Nein (Kasten/Standard)</Label>
                         </div>
                       </RadioGroup>
                     </div>
                   </div>
 
                   {/* Step 1 CTA Trigger */}
-                  <div className="pt-4 sticky bottom-0 left-0 right-0 z-20 -mx-6 px-6 py-3 bg-background border-t border-muted/20 md:static md:mx-0 md:px-0 md:py-0 md:border-0 md:bg-transparent">
+                  <div className="pt-4 sticky bottom-0 left-0 right-0 z-20 -mx-6 px-6 py-3 bg-white border-t border-brand-grey/15 md:static md:mx-0 md:px-0 md:py-0 md:border-0 md:bg-transparent">
                     <Button
                       type="button"
                       onClick={handleNextStep}
-                      className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-extrabold text-base py-6 rounded-sm shadow-md transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 min-h-[44px]"
+                      className="w-full bg-brand-cyan text-brand-navy hover:bg-brand-cyan/90 font-bold text-base py-6 rounded-xl shadow-lg shadow-brand-cyan/10 hover:shadow-brand-cyan/20 transition-all active:scale-97 flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
                     >
                       <span>Weiter zu den Kontaktdaten</span>
-                      <ArrowRight className="h-5 w-5" />
+                      <ArrowRight className="h-5 w-5 text-brand-navy" />
                     </Button>
                   </div>
                 </div>
               )}
 
-              {/* STEP 2: SENSITIVE PERSONAL CONTACT DETAILS */}
+              {/* STEP 2: PERSONAL CONTACT DETAILS */}
               {step === 2 && (
                 <div className="space-y-6 pb-20 md:pb-0">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     
                     {/* Vorname */}
                     <div className="space-y-2">
-                      <Label htmlFor="vorname" className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
+                      <Label htmlFor="vorname" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
                         Vorname *
                       </Label>
                       <Input
                         type="text"
                         id="vorname"
                         placeholder="z.B. Max"
-                        className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary"
+                        className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy"
                         {...register("vorname")}
                       />
                       {errors.vorname && (
@@ -510,14 +540,14 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
 
                     {/* Nachname */}
                     <div className="space-y-2">
-                      <Label htmlFor="nachname" className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
+                      <Label htmlFor="nachname" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
                         Nachname *
                       </Label>
                       <Input
                         type="text"
                         id="nachname"
                         placeholder="z.B. Mustermann"
-                        className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary"
+                        className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy"
                         {...register("nachname")}
                       />
                       {errors.nachname && (
@@ -527,14 +557,14 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
 
                     {/* Unternehmen */}
                     <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="unternehmen" className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
+                      <Label htmlFor="unternehmen" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
                         Unternehmen *
                       </Label>
                       <Input
                         type="text"
                         id="unternehmen"
                         placeholder="z.B. Firmenname GmbH"
-                        className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary"
+                        className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy"
                         {...register("unternehmen")}
                       />
                       {errors.unternehmen && (
@@ -544,14 +574,14 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
 
                     {/* E-Mail */}
                     <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="email" className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
+                      <Label htmlFor="email" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
                         E-Mail-Adresse *
                       </Label>
                       <Input
                         type="email"
                         id="email"
                         placeholder="z.B. m.mustermann@firma.de"
-                        className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary"
+                        className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy"
                         {...register("email")}
                       />
                       {errors.email && (
@@ -561,14 +591,14 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
 
                     {/* Telefon */}
                     <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="telefon" className="font-sans font-bold text-xs text-primary uppercase tracking-wider">
+                      <Label htmlFor="telefon" className="font-sans font-bold text-xs text-brand-navy uppercase tracking-wider">
                         Telefonnummer (optional)
                       </Label>
                       <Input
                         type="tel"
                         id="telefon"
                         placeholder="z.B. +49 123 456789"
-                        className="w-full bg-background border-muted/30 rounded-sm h-12 md:h-11 text-base md:text-xs font-semibold text-primary"
+                        className="w-full bg-white border-brand-grey/15 rounded-xl h-12 text-base md:text-sm font-semibold text-brand-navy"
                         {...register("telefon")}
                       />
                       {errors.telefon && (
@@ -579,37 +609,37 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                   </div>
 
                   {/* Step 2 CTA Triggers */}
-                  <div className="pt-4 sticky bottom-0 left-0 right-0 z-20 -mx-6 px-6 py-3 bg-background border-t border-muted/20 md:static md:mx-0 md:px-0 md:py-0 md:border-0 md:bg-transparent flex flex-col sm:flex-row gap-3">
+                  <div className="pt-4 sticky bottom-0 left-0 right-0 z-20 -mx-6 px-6 py-3 bg-white border-t border-brand-grey/15 md:static md:mx-0 md:px-0 md:py-0 md:border-0 md:bg-transparent flex flex-col sm:flex-row gap-3">
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => setStep(1)}
-                      className="w-full sm:w-1/3 border-primary text-primary font-sans font-bold text-base py-6 rounded-sm min-h-[44px] flex items-center justify-center gap-2"
+                      className="w-full sm:w-1/3 border-brand-navy text-brand-navy font-bold text-base py-6 rounded-xl min-h-[44px] flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <ArrowLeft className="h-5 w-5" />
+                      <ArrowLeft className="h-5 w-5 text-brand-navy" />
                       <span>Zurück</span>
                     </Button>
 
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full sm:w-2/3 bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-extrabold text-base py-6 rounded-sm shadow-md transition-all duration-150 active:scale-95 flex items-center justify-center gap-2 min-h-[44px]"
+                      className="w-full sm:w-2/3 bg-brand-cyan text-brand-navy hover:bg-brand-cyan/90 font-bold text-base py-6 rounded-xl shadow-lg shadow-brand-cyan/10 hover:shadow-brand-cyan/20 transition-all active:scale-97 flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
                     >
                       {isSubmitting ? (
                         <>
-                          <Loader2 className="h-5 w-5 animate-spin" />
+                          <Loader2 className="h-5 w-5 animate-spin text-brand-navy" />
                           <span>Anfrage wird gesendet...</span>
                         </>
                       ) : (
                         <>
-                          <Send className="h-5 w-5" />
+                          <Send className="h-5 w-5 text-brand-navy" />
                           <span>Anfrage absenden</span>
                         </>
                       )}
                     </Button>
                   </div>
 
-                  <p className="font-sans text-[10px] text-muted text-center mt-3 leading-normal">
+                  <p className="font-sans text-[10px] text-brand-grey text-center mt-3 leading-normal">
                     Mit Absenden des Formulars stimmen Sie der Verarbeitung Ihrer Daten zur Angebotserstellung gemäß unserer Datenschutzerklärung zu. Keine Werbe-Spam-Garantie.
                   </p>
                 </div>
@@ -619,25 +649,25 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
           ) : (
             // Success State
             <div className="p-10 md:p-16 text-center space-y-6">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-secondary text-primary">
-                <CheckCircle2 className="h-10 w-10 text-accent stroke-[3]" />
+              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-brand-light text-brand-navy">
+                <CheckCircle2 className="h-10 w-10 text-brand-cyan stroke-[3]" />
               </div>
               
               <div className="space-y-2">
-                <h3 className="font-display font-extrabold text-2xl text-primary">Vielen Dank für Ihre Anfrage!</h3>
-                <p className="font-sans text-base text-muted max-w-lg mx-auto">
+                <h3 className="font-display font-extrabold text-2xl text-brand-navy">Vielen Dank für Ihre Anfrage!</h3>
+                <p className="font-sans text-base text-brand-grey max-w-lg mx-auto">
                   Ihre Nutzfahrzeug-Anfrage wurde erfolgreich übermittelt. Unser B2B-Spezialist prüft Ihre Daten und erstellt Ihr Angebot.
                 </p>
               </div>
 
-              {/* Display lead score details dynamically for professional demonstration */}
-              <div className="border border-muted/20 bg-secondary/30 p-4 rounded-sm max-w-md mx-auto text-left space-y-2 font-sans text-xs">
+              {/* Display lead score details */}
+              <div className="border border-brand-grey/15 bg-brand-light p-4 rounded-xl max-w-md mx-auto text-left space-y-2 font-sans text-xs shadow-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted font-semibold">Anfrage-Status:</span>
-                  <span className="text-primary font-bold">Erfolgreich erfasst</span>
+                  <span className="text-brand-grey font-semibold">Anfrage-Status:</span>
+                  <span className="text-brand-navy font-bold">Erfolgreich erfasst</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted font-semibold">Priorität (Lead Score):</span>
+                  <span className="text-brand-grey font-semibold">Priorität (Lead Score):</span>
                   <span className={`font-bold ${
                     calculatedScore === "Hot" ? "text-red-600" : calculatedScore === "Warm" ? "text-orange-500" : "text-blue-600"
                   }`}>
@@ -645,8 +675,8 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted font-semibold">Geschätzte Rückmeldezeit:</span>
-                  <span className="text-primary font-bold">
+                  <span className="text-brand-grey font-semibold">Geschätzte Rückmeldezeit:</span>
+                  <span className="text-brand-navy font-bold">
                     {calculatedScore === "Hot" ? "< 4 Stunden" : calculatedScore === "Warm" ? "< 12 Stunden" : "< 24 Stunden"}
                   </span>
                 </div>
@@ -660,7 +690,7 @@ export default function LeadForm({ prefilledVehicle }: LeadFormProps) {
                     reset();
                   }}
                   variant="outline"
-                  className="font-sans font-bold text-xs border-primary text-primary rounded-sm"
+                  className="font-sans font-bold text-xs border-brand-navy text-brand-navy rounded-xl cursor-pointer"
                 >
                   Neue Anfrage starten
                 </Button>

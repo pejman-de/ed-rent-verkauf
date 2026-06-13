@@ -7,7 +7,7 @@ interface HeaderProps {
 
 export default function Header({ onCtaClick }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-muted/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+    <header className="sticky top-0 z-50 w-full border-b border-brand-grey/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container flex h-20 items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
@@ -22,23 +22,23 @@ export default function Header({ onCtaClick }: HeaderProps) {
         <div className="flex items-center gap-6">
           <a
             href="tel:+4921758845535"
-            className="hidden sm:flex items-center gap-2 font-sans text-sm font-bold text-primary hover:text-accent transition-colors"
+            className="hidden sm:flex items-center gap-2 font-sans text-sm font-bold text-brand-navy hover:text-brand-cyan transition-colors"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-secondary text-primary">
-              <Phone className="h-4 w-4" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan">
+              <Phone className="h-5 w-5" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xs text-muted font-normal">Direkt-Durchwahl</span>
-              <span>+49 2175 8845535</span>
+              <span className="text-xs text-brand-grey font-normal">Direkt-Durchwahl</span>
+              <span className="text-brand-navy">+49 217 58845535</span>
             </div>
           </a>
 
           <Button
             onClick={onCtaClick}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 font-sans font-bold px-6 py-5 rounded-sm shadow-sm transition-all duration-150 active:scale-95 flex items-center gap-2"
+            className="bg-brand-cyan text-brand-navy hover:bg-brand-cyan/90 font-bold text-sm px-6 py-5 rounded-xl shadow-lg shadow-brand-cyan/10 hover:shadow-brand-cyan/20 transition-all active:scale-97 flex items-center gap-2"
           >
             <span>Fahrzeug anfragen</span>
-            <ArrowRight className="h-4 w-4 text-accent" />
+            <ArrowRight className="h-4 w-4 text-brand-navy" />
           </Button>
         </div>
       </div>

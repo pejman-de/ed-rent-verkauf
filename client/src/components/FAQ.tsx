@@ -26,17 +26,19 @@ export default function FAQ() {
   ];
 
   return (
-    <section className="bg-secondary/30 py-16 lg:py-24 border-b border-muted/10">
-      <div className="container max-w-3xl">
+    <section className="relative overflow-hidden bg-brand-light py-20 border-b border-brand-grey/10">
+      {/* Tech-Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#6e7c950a_1px,transparent_1px),linear-gradient(to_bottom,#6e7c950a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      <div className="container relative z-10 max-w-3xl">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-3">
-          <span className="font-sans text-xs font-bold tracking-wider text-muted uppercase">
+          <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-cyan">
             Häufig gestellte Fragen
           </span>
-          <h2 className="font-display font-extrabold text-3xl text-primary tracking-tight">
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-brand-navy tracking-tight">
             Fragen & Antworten.
           </h2>
-          <p className="font-sans text-base text-muted leading-relaxed">
+          <p className="font-sans text-base text-brand-grey leading-relaxed">
             Hier finden Sie schnelle Antworten auf die wichtigsten Fragen rund um den Fahrzeugkauf, Sonderaufbauten und die Finanzierung bei ED Rent & Sale.
           </p>
         </div>
@@ -47,12 +49,12 @@ export default function FAQ() {
             <AccordionItem
               key={idx}
               value={`faq-${idx}`}
-              className="border border-muted/20 bg-background px-6 py-2 rounded-sm shadow-[0_1px_2px_rgba(0,0,0,0.01)]"
+              className="border border-brand-grey/15 bg-white px-6 py-2 rounded-2xl shadow-sm hover:border-brand-cyan/40 transition-all duration-300"
             >
-              <AccordionTrigger className="font-display font-bold text-base text-primary hover:text-accent hover:no-underline text-left">
+              <AccordionTrigger className="font-display font-bold text-base text-brand-navy hover:text-brand-cyan hover:no-underline text-left cursor-pointer">
                 {faq.q}
               </AccordionTrigger>
-              <AccordionContent className="font-sans text-sm text-muted leading-relaxed pt-2 border-t border-muted/10 mt-2">
+              <AccordionContent className="font-sans text-sm text-brand-grey leading-relaxed pt-2 border-t border-brand-grey/10 mt-2">
                 {faq.a}
               </AccordionContent>
             </AccordionItem>

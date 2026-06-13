@@ -14,28 +14,27 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-background py-16 lg:py-24 border-b border-muted/10">
-      {/* Background Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(110,124,149,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(110,124,149,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+    <section className="relative overflow-hidden py-16 md:py-24 lg:py-32 border-b border-brand-grey/10 bg-gradient-to-b from-brand-light to-white">
+      {/* Tech-Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#6e7c950a_1px,transparent_1px),linear-gradient(to_bottom,#6e7c950a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       
       <div className="container relative z-10 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 items-center">
         {/* Left Content Column */}
         <div className="flex flex-col space-y-8 lg:col-span-6">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 border border-muted/30 bg-secondary px-3 py-1 rounded-sm">
-              <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-              <span className="font-sans text-xs font-bold tracking-wider text-primary uppercase">
+            <div className="inline-flex items-center gap-2 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3 py-1 text-xs font-semibold text-brand-navy md:text-sm">
+              <span className="flex h-2 w-2 rounded-full bg-brand-cyan animate-pulse" />
+              <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-cyan">
                 B2B Nutzfahrzeug-Spezialist
               </span>
             </div>
             
-            <h1 className="font-display font-extrabold text-4xl tracking-tight text-primary sm:text-5xl lg:text-6xl leading-[1.1] whitespace-pre-line">
+            <h1 className="font-display font-extrabold text-4xl tracking-tight text-brand-navy sm:text-5xl md:text-6xl lg:leading-[1.1] whitespace-pre-line">
               Vom Sprinter bis LKW.{"\n"}
-              Neu und gebraucht.{"\n"}
-              Aus einer Hand.
+              <span className="block text-brand-cyan mt-1">Neu und gebraucht. Aus einer Hand.</span>
             </h1>
             
-            <p className="font-sans text-lg text-muted max-w-xl leading-relaxed">
+            <p className="font-sans text-lg text-brand-grey leading-relaxed md:text-xl max-w-xl">
               ED Rent & Sale ist Ihr verlässlicher Partner für erstklassige Nutzfahrzeuge. Maßgeschneiderte B2B-Mobilitätslösungen für Handwerk, Logistik und Handel. Ein Ansprechpartner, kein Behördenlauf.
             </p>
           </div>
@@ -45,30 +44,30 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
             <Button
               onClick={onPrimaryClick}
               size="lg"
-              className="bg-accent text-accent-foreground hover:bg-accent/90 font-sans font-extrabold px-8 py-6 text-base rounded-sm shadow-sm transition-all duration-150 active:scale-95 flex items-center justify-center gap-2"
+              className="bg-brand-cyan text-brand-navy hover:bg-brand-cyan/90 font-bold text-base px-8 py-6 shadow-lg shadow-brand-cyan/10 hover:shadow-brand-cyan/20 transition-all active:scale-97 flex items-center justify-center gap-2 rounded-xl"
             >
               <span>Fahrzeug konfigurieren</span>
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight className="h-5 w-5 text-brand-navy" />
             </Button>
             
             <Button
               onClick={onSecondaryClick}
               size="lg"
               variant="outline"
-              className="border-2 border-primary text-primary hover:bg-secondary font-sans font-bold px-8 py-6 text-base rounded-sm transition-all duration-150 active:scale-95 flex items-center justify-center"
+              className="border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white font-semibold text-base px-8 py-6 transition-all active:scale-97 flex items-center justify-center rounded-xl"
             >
               Fahrzeugbestand ansehen
             </Button>
           </div>
 
           {/* Checkmarks */}
-          <div className="space-y-3 pt-2 border-t border-muted/10">
+          <div className="space-y-3 pt-4 border-t border-brand-grey/10">
             {checkmarks.map((text, idx) => (
               <div key={idx} className="flex items-start gap-3">
-                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm bg-secondary text-primary mt-0.5">
-                  <Check className="h-3.5 w-3.5 text-accent stroke-[3]" />
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan">
+                  <Check className="h-5 w-5" />
                 </div>
-                <span className="font-sans text-sm font-semibold text-primary/90">
+                <span className="font-sans text-sm font-semibold text-brand-navy leading-normal mt-2">
                   {text}
                 </span>
               </div>
@@ -78,31 +77,25 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: HeroProps) {
 
         {/* Right Visual Column */}
         <div className="lg:col-span-6 relative">
-          <div className="relative overflow-hidden border border-muted/30 bg-secondary rounded-sm shadow-md">
-            {/* Aspect Ratio Container */}
-            <div className="aspect-[16/10] w-full">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663281979359/iiQHyte9m2j8pb53mDZgmE/hero-vehicles-Q99sW2nsU53yUfKN45454Y.webp"
-                alt="ED Rent & Sale Nutzfahrzeug-Lineup"
-                className="h-full w-full object-cover object-center"
-                loading="eager"
-              />
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-2xl border border-brand-grey/10">
+            <img
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663281979359/iiQHyte9m2j8pb53mDZgmE/hero-vehicles-Q99sW2nsU53yUfKN45454Y.webp"
+              alt="ED Rent & Sale Nutzfahrzeug-Lineup"
+              className="h-full w-full object-cover object-center"
+              loading="eager"
+            />
+            {/* Glass Overlay on Image */}
+            <div className="absolute bottom-6 left-6 right-6 rounded-xl border border-white/20 bg-brand-navy/65 p-6 text-white backdrop-blur-md md:p-8">
+              <span className="font-display font-extrabold text-4xl text-brand-cyan md:text-5xl tracking-tight leading-none">
+                100%
+              </span>
+              <p className="font-sans text-xs font-bold uppercase tracking-wider text-brand-cyan mt-1">
+                B2B-Ausrichtung
+              </p>
+              <p className="font-sans text-sm text-white/80 mt-2 leading-snug">
+                Geprüfte Qualität für Ihren Fuhrpark.
+              </p>
             </div>
-            {/* Visual overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent" />
-          </div>
-          
-          {/* Accent badge */}
-          <div className="absolute -bottom-6 -left-6 hidden sm:flex flex-col bg-primary p-5 border border-muted/20 rounded-sm shadow-lg max-w-[220px]">
-            <span className="font-display font-extrabold text-3xl text-accent leading-none">
-              100%
-            </span>
-            <span className="font-sans text-xs font-bold text-primary-foreground tracking-wider uppercase mt-1">
-              B2B-Ausrichtung
-            </span>
-            <span className="font-sans text-xs text-muted-foreground mt-2 leading-snug">
-              Geprüfte Qualität für Ihren Fuhrpark.
-            </span>
           </div>
         </div>
       </div>

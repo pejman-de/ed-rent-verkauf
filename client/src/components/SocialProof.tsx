@@ -8,15 +8,15 @@ export default function SocialProof() {
   ];
 
   return (
-    <section className="bg-secondary/50 py-10 border-b border-muted/10">
+    <section className="bg-brand-light py-12 border-b border-brand-grey/10">
       <div className="container">
         <div className="flex flex-col space-y-6 lg:flex-row lg:space-y-0 lg:items-center lg:justify-between">
           {/* Header */}
           <div className="max-w-md shrink-0">
-            <h2 className="font-display font-bold text-lg text-primary leading-tight">
+            <h2 className="font-display font-bold text-lg text-brand-navy leading-tight">
               Erfahrung mit Fahrzeugen führender Hersteller.
             </h2>
-            <p className="font-sans text-xs font-semibold text-muted tracking-wider uppercase mt-1">
+            <p className="font-sans text-xs font-bold uppercase tracking-wider text-brand-cyan mt-1">
               Beste Konditionen & voller Service.
             </p>
           </div>
@@ -26,12 +26,12 @@ export default function SocialProof() {
             {brands.map((brand, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center justify-center p-4 border border-muted/20 bg-background rounded-sm text-center shadow-[0_1px_2px_rgba(0,0,0,0.02)] hover:border-muted/40 transition-colors"
+                className="group relative flex flex-col items-center justify-center p-5 rounded-2xl border border-brand-grey/15 bg-white shadow-sm hover:shadow-xl hover:border-brand-cyan/40 hover:-translate-y-1 transition-all duration-300 text-center"
               >
-                <span className="font-display font-extrabold text-sm tracking-tight text-primary leading-none">
+                <span className="font-display font-extrabold text-sm tracking-tight text-brand-navy leading-none">
                   {brand.name}
                 </span>
-                <span className="font-sans text-[10px] font-semibold text-muted mt-1 uppercase tracking-wider">
+                <span className="font-sans text-[10px] font-semibold text-brand-grey mt-1.5 uppercase tracking-wider">
                   {brand.desc}
                 </span>
               </div>

@@ -71,34 +71,36 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
   };
 
   return (
-    <section id="gallery" className="bg-background py-16 lg:py-24 border-b border-muted/10">
-      <div className="container space-y-12">
+    <section id="gallery" className="relative overflow-hidden bg-background py-20 border-b border-brand-grey/10">
+      {/* Tech-Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#6e7c950a_1px,transparent_1px),linear-gradient(to_bottom,#6e7c950a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      <div className="container relative z-10 space-y-12">
         
         {/* Section Header & Filters Row */}
         <div className="flex flex-col space-y-6 lg:flex-row lg:space-y-0 lg:items-end lg:justify-between border-b border-muted/20 pb-8">
           
           {/* Left: Tab Switcher (Neu / Gebraucht) */}
           <div className="space-y-4">
-            <span className="font-sans text-xs font-bold tracking-wider text-muted uppercase">
+            <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-cyan">
               Aktueller Fahrzeugbestand
             </span>
-            <div className="inline-flex p-1 bg-secondary border border-muted/20 rounded-sm">
+            <div className="inline-flex p-1 bg-brand-light border border-brand-grey/15 rounded-xl">
               <button
                 onClick={() => { setCondition('Neu'); resetFilters(); }}
-                className={`px-6 py-2.5 font-display font-bold text-sm rounded-sm transition-all duration-150 ${
+                className={`px-6 py-2.5 font-sans font-bold text-sm rounded-lg transition-all duration-150 cursor-pointer ${
                   condition === 'Neu'
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted hover:text-primary'
+                    ? 'bg-brand-navy text-white shadow-sm'
+                    : 'text-brand-grey hover:text-brand-navy'
                 }`}
               >
                 Neufahrzeuge
               </button>
               <button
                 onClick={() => { setCondition('Gebraucht'); resetFilters(); }}
-                className={`px-6 py-2.5 font-display font-bold text-sm rounded-sm transition-all duration-150 ${
+                className={`px-6 py-2.5 font-sans font-bold text-sm rounded-lg transition-all duration-150 cursor-pointer ${
                   condition === 'Gebraucht'
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted hover:text-primary'
+                    ? 'bg-brand-navy text-white shadow-sm'
+                    : 'text-brand-grey hover:text-brand-navy'
                 }`}
               >
                 Gebrauchtfahrzeuge
@@ -110,15 +112,15 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full lg:max-w-2xl">
             {/* Filter 1: Typ */}
             <div className="space-y-1.5">
-              <label className="font-sans text-[10px] font-bold text-muted uppercase tracking-wider">Fahrzeugtyp</label>
+              <label className="font-sans text-[10px] font-bold text-brand-grey uppercase tracking-wider">Fahrzeugtyp</label>
               <Select value={selectedType} onValueChange={setSelectedType}>
-                <SelectTrigger className="w-full bg-background border-muted/30 rounded-sm h-11 text-xs font-semibold text-primary">
+                <SelectTrigger className="w-full bg-white border-brand-grey/30 rounded-xl h-11 text-xs font-semibold text-brand-navy focus:border-brand-cyan focus:ring-brand-cyan">
                   <SelectValue placeholder="Alle Typen" />
                 </SelectTrigger>
-                <SelectContent className="bg-background border-muted/20 rounded-sm">
-                  <SelectItem value="all" className="text-xs font-medium text-primary">Alle Typen</SelectItem>
+                <SelectContent className="bg-white border-brand-grey/15 rounded-xl">
+                  <SelectItem value="all" className="text-xs font-medium text-brand-navy">Alle Typen</SelectItem>
                   {types.filter(t => t !== 'all').map(type => (
-                    <SelectItem key={type} value={type} className="text-xs font-medium text-primary">
+                    <SelectItem key={type} value={type} className="text-xs font-medium text-brand-navy">
                       {type}
                     </SelectItem>
                   ))}
@@ -128,15 +130,15 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
 
             {/* Filter 2: Marke */}
             <div className="space-y-1.5">
-              <label className="font-sans text-[10px] font-bold text-muted uppercase tracking-wider">Marke</label>
+              <label className="font-sans text-[10px] font-bold text-brand-grey uppercase tracking-wider">Marke</label>
               <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-                <SelectTrigger className="w-full bg-background border-muted/30 rounded-sm h-11 text-xs font-semibold text-primary">
+                <SelectTrigger className="w-full bg-white border-brand-grey/30 rounded-xl h-11 text-xs font-semibold text-brand-navy focus:border-brand-cyan focus:ring-brand-cyan">
                   <SelectValue placeholder="Alle Marken" />
                 </SelectTrigger>
-                <SelectContent className="bg-background border-muted/20 rounded-sm">
-                  <SelectItem value="all" className="text-xs font-medium text-primary">Alle Marken</SelectItem>
+                <SelectContent className="bg-white border-brand-grey/15 rounded-xl">
+                  <SelectItem value="all" className="text-xs font-medium text-brand-navy">Alle Marken</SelectItem>
                   {brands.filter(b => b !== 'all').map(brand => (
-                    <SelectItem key={brand} value={brand} className="text-xs font-medium text-primary">
+                    <SelectItem key={brand} value={brand} className="text-xs font-medium text-brand-navy">
                       {brand}
                     </SelectItem>
                   ))}
@@ -146,16 +148,16 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
 
             {/* Filter 3: Aufbau / Leistung */}
             <div className="space-y-1.5">
-              <label className="font-sans text-[10px] font-bold text-muted uppercase tracking-wider">Spezifikation</label>
+              <label className="font-sans text-[10px] font-bold text-brand-grey uppercase tracking-wider">Spezifikation</label>
               <Select value={selectedSpec} onValueChange={setSelectedSpec}>
-                <SelectTrigger className="w-full bg-background border-muted/30 rounded-sm h-11 text-xs font-semibold text-primary">
+                <SelectTrigger className="w-full bg-white border-brand-grey/30 rounded-xl h-11 text-xs font-semibold text-brand-navy focus:border-brand-cyan focus:ring-brand-cyan">
                   <SelectValue placeholder="Standard" />
                 </SelectTrigger>
-                <SelectContent className="bg-background border-muted/20 rounded-sm">
-                  <SelectItem value="all" className="text-xs font-medium text-primary">Standard (Alle)</SelectItem>
-                  <SelectItem value="high-power" className="text-xs font-medium text-primary">Starke Leistung (&ge; 160 PS)</SelectItem>
-                  <SelectItem value="high-payload" className="text-xs font-medium text-primary">Hohe Zuladung (&ge; 1.250 kg)</SelectItem>
-                  <SelectItem value="high-volume" className="text-xs font-medium text-primary">Großes Volumen (&ge; 12 m³)</SelectItem>
+                <SelectContent className="bg-white border-brand-grey/15 rounded-xl">
+                  <SelectItem value="all" className="text-xs font-medium text-brand-navy">Standard (Alle)</SelectItem>
+                  <SelectItem value="high-power" className="text-xs font-medium text-brand-navy">Starke Leistung (&ge; 160 PS)</SelectItem>
+                  <SelectItem value="high-payload" className="text-xs font-medium text-brand-navy">Hohe Zuladung (&ge; 1.250 kg)</SelectItem>
+                  <SelectItem value="high-volume" className="text-xs font-medium text-brand-navy">Großes Volumen (&ge; 12 m³)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -174,10 +176,10 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="flex flex-col border border-muted/20 bg-background rounded-sm overflow-hidden hover:border-muted/40 hover:shadow-md transition-all duration-200 group"
+                className="group relative flex flex-col justify-between rounded-2xl border border-brand-grey/15 bg-white shadow-sm hover:shadow-xl hover:border-brand-cyan/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
                 {/* Vehicle Image Placeholder */}
-                <div className="aspect-[4/3] relative overflow-hidden bg-secondary">
+                <div className="aspect-[4/3] relative overflow-hidden bg-brand-light">
                   <img
                     src={vehicle.image}
                     alt={vehicle.name}
@@ -187,8 +189,8 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
                   
                   {/* Availability Badge */}
                   <div className="absolute top-4 left-4">
-                    <Badge className="bg-primary/90 text-primary-foreground font-sans font-bold text-[10px] tracking-wider uppercase px-2.5 py-1 border border-primary-foreground/10 rounded-sm flex items-center gap-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                    <Badge className="bg-brand-navy/90 text-white font-sans font-bold text-[10px] tracking-wider uppercase px-2.5 py-1 border border-white/10 rounded-full flex items-center gap-1.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-brand-cyan animate-pulse" />
                       {vehicle.availability}
                     </Badge>
                   </div>
@@ -197,56 +199,56 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
                 {/* Card Body */}
                 <div className="flex flex-col p-6 flex-grow space-y-5">
                   <div className="space-y-1">
-                    <span className="font-sans text-[10px] font-bold text-muted tracking-wider uppercase">
+                    <span className="font-sans text-[10px] font-bold text-brand-grey tracking-wider uppercase">
                       {vehicle.brand} • {vehicle.type}
                     </span>
-                    <h3 className="font-display font-bold text-lg text-primary leading-snug group-hover:text-accent transition-colors">
+                    <h3 className="font-display font-bold text-lg text-brand-navy leading-snug group-hover:text-brand-cyan transition-colors">
                       {vehicle.name}
                     </h3>
                   </div>
 
                   {/* Technical Specs Table-style Grid */}
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-b border-muted/10 py-4 font-sans text-xs">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-b border-brand-grey/10 py-4 font-sans text-xs">
                     <div className="flex justify-between items-center">
-                      <span className="text-muted font-medium">Leistung:</span>
-                      <span className="text-primary font-bold">{vehicle.specs.power}</span>
+                      <span className="text-brand-grey font-medium">Leistung:</span>
+                      <span className="text-brand-navy font-bold">{vehicle.specs.power}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-muted font-medium">Getriebe:</span>
-                      <span className="text-primary font-bold truncate max-w-[80px]" title={vehicle.specs.gearbox}>
+                      <span className="text-brand-grey font-medium">Getriebe:</span>
+                      <span className="text-brand-navy font-bold truncate max-w-[80px]" title={vehicle.specs.gearbox}>
                         {vehicle.specs.gearbox}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-muted font-medium">Zuladung:</span>
-                      <span className="text-primary font-bold">{vehicle.specs.payload}</span>
+                      <span className="text-brand-grey font-medium">Zuladung:</span>
+                      <span className="text-brand-navy font-bold">{vehicle.specs.payload}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-muted font-medium">Laderaum:</span>
-                      <span className="text-primary font-bold">{vehicle.specs.volume}</span>
+                      <span className="text-brand-grey font-medium">Laderaum:</span>
+                      <span className="text-brand-navy font-bold">{vehicle.specs.volume}</span>
                     </div>
                   </div>
 
                   {/* Price & Action Row */}
                   <div className="flex items-center justify-between pt-1">
                     <div className="flex flex-col">
-                      <span className="font-sans text-[10px] font-semibold text-muted uppercase tracking-wider">
+                      <span className="font-sans text-[10px] font-semibold text-brand-grey uppercase tracking-wider">
                         Gewerblicher Kaufpreis
                       </span>
-                      <span className="font-display font-extrabold text-xl text-primary">
+                      <span className="font-display font-extrabold text-xl text-brand-navy">
                         {vehicle.price}
                       </span>
-                      <span className="font-sans text-[9px] text-muted font-medium mt-0.5">
+                      <span className="font-sans text-[9px] text-brand-grey font-medium mt-0.5">
                         zzgl. MwSt. • Leasing ab Werk
                       </span>
                     </div>
 
                     <Button
                       onClick={() => onInquireClick(vehicle.name)}
-                      className="bg-primary text-primary-foreground hover:bg-primary/90 font-sans font-bold text-xs px-4 py-4 rounded-sm transition-all duration-150 active:scale-95 flex items-center gap-1.5"
+                      className="bg-brand-cyan text-brand-navy hover:bg-brand-cyan/90 font-bold text-xs px-4 py-4 rounded-xl shadow-lg shadow-brand-cyan/10 hover:shadow-brand-cyan/20 transition-all active:scale-97 flex items-center gap-1.5"
                     >
                       <span>Anfragen</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-accent" />
+                      <ArrowRight className="h-3.5 w-3.5 text-brand-navy group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </div>
                 </div>
@@ -256,20 +258,20 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
 
           {/* Empty State when filters yield no results */}
           {filteredVehicles.length === 0 && (
-            <div className="col-span-full py-16 text-center border border-dashed border-muted/30 rounded-sm bg-secondary/10 space-y-4">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-muted">
+            <div className="col-span-full py-16 text-center border border-dashed border-brand-grey/30 rounded-2xl bg-brand-light space-y-4">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-navy/5 text-brand-navy">
                 <Info className="h-6 w-6" />
               </div>
               <div className="space-y-1">
-                <h4 className="font-display font-bold text-base text-primary">Keine passenden Fahrzeuge gefunden</h4>
-                <p className="font-sans text-sm text-muted max-w-md mx-auto">
+                <h4 className="font-display font-bold text-base text-brand-navy">Keine passenden Fahrzeuge gefunden</h4>
+                <p className="font-sans text-sm text-brand-grey max-w-md mx-auto">
                   Für Ihre gewählten Filtereinstellungen sind aktuell keine Fahrzeuge im direkten Bestand. Gerne beschaffen wir Ihr Wunschfahrzeug kurzfristig.
                 </p>
               </div>
               <Button
                 onClick={resetFilters}
                 variant="outline"
-                className="font-sans font-bold text-xs border-primary text-primary rounded-sm"
+                className="border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white font-semibold text-xs px-6 py-4 transition-all active:scale-97 rounded-xl"
               >
                 Filter zurücksetzen
               </Button>
@@ -278,26 +280,25 @@ export default function InteractiveGallery({ onInquireClick }: InteractiveGaller
         </motion.div>
 
         {/* Dynamic CTA Banner below the Grid */}
-        <div className="border border-muted/20 bg-secondary/30 p-6 rounded-sm flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-primary text-accent mt-0.5">
+        <div className="border border-brand-grey/15 bg-brand-light p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+          <div className="flex items-start gap-4 relative z-10">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan">
               <CheckCircle2 className="h-5 w-5" />
             </div>
             <div className="space-y-1">
-              <h4 className="font-display font-bold text-sm text-primary">Ihr Wunschfahrzeug ist nicht dabei?</h4>
-              <p className="font-sans text-xs text-muted max-w-xl leading-relaxed">
+              <h4 className="font-display font-bold text-sm text-brand-navy">Ihr Wunschfahrzeug ist nicht dabei?</h4>
+              <p className="font-sans text-xs text-brand-grey max-w-xl leading-relaxed">
                 Über unser Händlerübergreifendes B2B-Netzwerk haben wir Zugriff auf über 1.000 weitere verfügbare Nutzfahrzeuge. Sagen Sie uns einfach, was Sie suchen.
               </p>
             </div>
           </div>
           <Button
             onClick={() => onInquireClick("Individuelle Spezifikation")}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 font-sans font-bold text-xs px-6 py-5 rounded-sm shrink-0 shadow-sm transition-all duration-150 active:scale-95"
+            className="bg-brand-cyan text-brand-navy hover:bg-brand-cyan/90 font-bold text-xs px-6 py-5 shadow-lg shadow-brand-cyan/10 hover:shadow-brand-cyan/20 transition-all active:scale-97 rounded-xl shrink-0 relative z-10"
           >
             Individuelles Fahrzeug anfragen
           </Button>
         </div>
-
       </div>
     </section>
   );
