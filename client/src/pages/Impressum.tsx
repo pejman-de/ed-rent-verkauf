@@ -93,7 +93,7 @@ export default function Impressum() {
               </div>
               <div className="font-sans text-sm text-primary space-y-2 leading-relaxed">
                 <p className="font-semibold">Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:</p>
-                <p className="font-mono text-xs tracking-wider bg-secondary/30 px-2 py-1 rounded-sm inline-block">DE 33598989106</p>
+                <p className="font-mono text-xs tracking-wider bg-secondary/30 px-2 py-1 rounded-sm inline-block">DE335989106</p>
               </div>
             </div>
 
